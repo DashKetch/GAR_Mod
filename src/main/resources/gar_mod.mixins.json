@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dashketch.mods.gar_mod.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
+  "client": [
+    "morphs.PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
