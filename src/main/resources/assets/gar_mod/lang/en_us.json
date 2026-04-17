@@ -1,5 +1,7 @@
 {
-  "itemGroup.gar_mod": "Example Mod Tab",
-  "block.gar_mod.example_block": "Example Block",
-  "item.gar_mod.example_item": "Example Item"
+  "item.gar_mod.cadet_helmet": "Cadet Helmet",
+  "item.gar_mod.cadet_chestplate": "Cadet Chestplate",
+  "item.gar_mod.cadet_leggings": "Cadet Leggings",
+  "item.gar_mod.cadet_boots": "Cadet Boots",
+  "itemGroup.gar_mod": "GAR Mod"
 }

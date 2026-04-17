@@ -2,17 +2,14 @@ package dashketch.mods.gar_mod;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
-import net.minecraft.client.Minecraft;
+import dashketch.mods.gar_mod.client.model.cadet;
+import dashketch.mods.gar_mod.morphs.GarArmorItem;
+import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -22,94 +19,86 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
 import java.util.function.Supplier;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Gar_mod.MODID)
 public class Gar_mod {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "gar_mod";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "gar_mod" namespace
+
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "gar_mod" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "gar_mod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "gar_mod:example_block", combining the namespace and path
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    // Creates a new BlockItem with the id "gar_mod:example_block", combining the namespace and path
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+    public static final DeferredItem<Item> CADET_HELMET = ITEMS.registerItem("cadet_helmet",
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.HELMET, properties.stacksTo(1)));
 
-    // Creates a new food item with the id "gar_mod:example_id", nutrition 1 and saturation 2
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+    public static final DeferredItem<Item> CADET_CHESTPLATE = ITEMS.registerItem("cadet_chestplate",
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)));
 
-    // Creates a creative tab with the id "gar_mod:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.gar_mod")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> EXAMPLE_ITEM.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-    }).build());
+    public static final DeferredItem<Item> CADET_LEGGINGS = ITEMS.registerItem("cadet_leggings",
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)));
 
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
+    public static final DeferredItem<Item> CADET_BOOTS = ITEMS.registerItem("cadet_boots",
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.BOOTS, properties.stacksTo(1)));
+
+    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
+
+    public static final Supplier<AttachmentType<Integer>> SKIN_TYPE = ATTACHMENT_TYPES.register("skin_type", () ->
+            AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_TAB = CREATIVE_MODE_TABS.register("gar_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.gar_mod"))
+            .icon(() -> CADET_CHESTPLATE.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(CADET_HELMET.get());
+                output.accept(CADET_CHESTPLATE.get());
+                output.accept(CADET_LEGGINGS.get());
+                output.accept(CADET_BOOTS.get());
+            }).build());
+
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+        ATTACHMENT_TYPES.register(modEventBus);
+        ModArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (Gar_mod) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
+        // This registers 'onServerStarting' to the FORGE bus
         NeoForge.EVENT_BUS.register(this);
-
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
     }
 
-    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
-            DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
-
-    public static final Supplier<AttachmentType<Integer>> SKIN_TYPE =
-            ATTACHMENT_TYPES.register("skin_type", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
-
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
     }
 
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) event.accept(EXAMPLE_BLOCK_ITEM);
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    // Automatically handles MOD bus events for the Physical Client
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+
+        @SubscribeEvent
+        public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            // Registering the cadet model layer here
+            event.registerLayerDefinition(cadet.LAYER_LOCATION, cadet::createBodyLayer);
+            LOGGER.info("GAR_MOD: Registered cadet armor layer");
         }
     }
 }

@@ -2,7 +2,6 @@ package dashketch.mods.gar_mod.global;
 
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
-import org.spongepowered.asm.mixin.Unique;
 public class GlobalSkins {
     //@Unique
     public static final PlayerSkin FLIGHT_SUIT = new PlayerSkin(
