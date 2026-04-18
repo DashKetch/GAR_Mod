@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import dashketch.mods.gar_mod.client.model.cadet;
 import dashketch.mods.gar_mod.morphs.GarArmorItem;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
+import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
@@ -71,6 +72,7 @@ public class Gar_mod {
         CREATIVE_MODE_TABS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
         ModArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
+        ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
 
         // This registers 'onServerStarting' to the FORGE bus
         NeoForge.EVENT_BUS.register(this);
