@@ -3,7 +3,9 @@ package dashketch.mods.gar_mod;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import dashketch.mods.gar_mod.client.model.cadet;
+import dashketch.mods.gar_mod.client.model.trooper;
 import dashketch.mods.gar_mod.morphs.GarArmorItem;
+import dashketch.mods.gar_mod.utils.armor.ArmorModelManager;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import net.minecraft.core.registries.Registries;
@@ -38,21 +40,33 @@ public class Gar_mod {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredItem<Item> CADET_HELMET = ITEMS.registerItem("cadet_helmet",
-            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.HELMET, properties.stacksTo(1)));
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.HELMET, properties.stacksTo(1), ArmorModelManager.ArmorType.CADET));
 
     public static final DeferredItem<Item> CADET_CHESTPLATE = ITEMS.registerItem("cadet_chestplate",
-            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)));
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1), ArmorModelManager.ArmorType.CADET));
 
     public static final DeferredItem<Item> CADET_LEGGINGS = ITEMS.registerItem("cadet_leggings",
-            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)));
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.LEGGINGS, properties.stacksTo(1), ArmorModelManager.ArmorType.CADET));
 
     public static final DeferredItem<Item> CADET_BOOTS = ITEMS.registerItem("cadet_boots",
-            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.BOOTS, properties.stacksTo(1)));
+            properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.BOOTS, properties.stacksTo(1), ArmorModelManager.ArmorType.CADET));
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
 
     public static final Supplier<AttachmentType<Integer>> SKIN_TYPE = ATTACHMENT_TYPES.register("skin_type", () ->
             AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+
+    public static final DeferredItem<Item> TROOPER_HELMET = ITEMS.registerItem("trooper_helmet",
+            properties -> new GarArmorItem(ModArmorMaterials.TROOPER, ArmorItem.Type.HELMET, properties.stacksTo(1), ArmorModelManager.ArmorType.TROOPER));
+
+    public static final DeferredItem<Item> TROOPER_CHESTPLATE = ITEMS.registerItem("trooper_chestplate",
+            properties -> new GarArmorItem(ModArmorMaterials.TROOPER, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1), ArmorModelManager.ArmorType.TROOPER));
+
+    public static final DeferredItem<Item> TROOPER_LEGGINGS = ITEMS.registerItem("trooper_leggings",
+            properties -> new GarArmorItem(ModArmorMaterials.TROOPER, ArmorItem.Type.LEGGINGS, properties.stacksTo(1), ArmorModelManager.ArmorType.TROOPER));
+
+    public static final DeferredItem<Item> TROOPER_BOOTS = ITEMS.registerItem("trooper_boots",
+            properties -> new GarArmorItem(ModArmorMaterials.TROOPER, ArmorItem.Type.BOOTS, properties.stacksTo(1), ArmorModelManager.ArmorType.TROOPER));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_TAB = CREATIVE_MODE_TABS.register("gar_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.gar_mod"))
@@ -62,6 +76,10 @@ public class Gar_mod {
                 output.accept(CADET_CHESTPLATE.get());
                 output.accept(CADET_LEGGINGS.get());
                 output.accept(CADET_BOOTS.get());
+                output.accept(TROOPER_HELMET.get());
+                output.accept(TROOPER_CHESTPLATE.get());
+                output.accept(TROOPER_LEGGINGS.get());
+                output.accept(TROOPER_BOOTS.get());
             }).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
@@ -98,9 +116,10 @@ public class Gar_mod {
 
         @SubscribeEvent
         public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            // Registering the cadet model layer here
+            // Registering the model layers here
             event.registerLayerDefinition(cadet.LAYER_LOCATION, cadet::createBodyLayer);
-            LOGGER.info("GAR_MOD: Registered cadet armor layer");
+            event.registerLayerDefinition(trooper.LAYER_LOCATION, trooper::createBodyLayer);
+            LOGGER.info("GAR_MOD: Registered armor layers");
         }
     }
 }

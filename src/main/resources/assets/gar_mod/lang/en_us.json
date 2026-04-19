@@ -3,5 +3,9 @@
   "item.gar_mod.cadet_chestplate": "Cadet Chestplate",
   "item.gar_mod.cadet_leggings": "Cadet Leggings",
   "item.gar_mod.cadet_boots": "Cadet Boots",
-  "itemGroup.gar_mod": "GAR Mod"
+  "itemGroup.gar_mod": "GAR Mod",
+  "item.gar_mod.trooper_helmet": "Trooper Helmet",
+  "item.gar_mod.trooper_chestplate": "Trooper Chestplate",
+  "item.gar_mod.trooper_leggings": "Trooper Leggings",
+  "item.gar_mod.trooper_boots": "Trooper Boots"
 }
