@@ -1,13 +1,17 @@
 package dashketch.mods.gar_mod.global;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.client.ui.gui.TeamSelectionScreen;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+
+import java.sql.Time;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ModEvents {
@@ -54,6 +58,19 @@ public class ModEvents {
         }
 
         // Save the updated data back to the player
-        player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(newRank, newPoints, newTicks));
+        player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(newRank, newPoints, newTicks, oldData.team));
     }
+
+    @SubscribeEvent
+    public static void onClientTick(PlayerTickEvent.Post event) throws InterruptedException {
+        if (event.getEntity().level().isClientSide()) {
+            PlayerRankData data = event.getEntity().getData(ModAttachments.PLAYER_RANK);
+
+            // If the player has no team yet, force the menu open
+            if (data.team.equals("none") && Minecraft.getInstance().screen == null) {
+                Minecraft.getInstance().setScreen(new TeamSelectionScreen());
+            }
+        }
+    }
+
 }

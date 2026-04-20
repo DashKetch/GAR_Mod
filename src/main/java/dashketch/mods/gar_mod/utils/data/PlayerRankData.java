@@ -7,6 +7,7 @@ public class PlayerRankData {
     public final int rank;
     public final int points;
     public final int tickCounter;
+    public final String team;
 
     public static int getRankForPoints(int points) {
         if (points >= 210) return 7;
@@ -22,12 +23,14 @@ public class PlayerRankData {
     public static final Codec<PlayerRankData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("rank").forGetter(d -> d.rank),
             Codec.INT.fieldOf("points").forGetter(d -> d.points),
-            Codec.INT.fieldOf("tickCounter").forGetter(d -> d.tickCounter)
+            Codec.INT.fieldOf("tickCounter").forGetter(d -> d.tickCounter),
+            Codec.STRING.fieldOf("team").forGetter(d -> d.team)
     ).apply(instance, PlayerRankData::new));
 
-    public PlayerRankData(int rank, int points, int tickCounter) {
+    public PlayerRankData(int rank, int points, int tickCounter, String team) {
         this.rank = rank;
         this.points = points;
         this.tickCounter = tickCounter;
+        this.team = team;
     }
 }

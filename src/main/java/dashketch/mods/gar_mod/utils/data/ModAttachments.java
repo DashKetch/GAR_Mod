@@ -13,7 +13,7 @@ public class ModAttachments {
 
     // If a player joins for the very first time, they get Rank 1, 0 Points, 0 Ticks.
     public static final Supplier<AttachmentType<PlayerRankData>> PLAYER_RANK = ATTACHMENT_TYPES.register("player_rank",
-            () -> AttachmentType.builder(() -> new PlayerRankData(1, 0, 0))
+            () -> AttachmentType.builder(() -> new PlayerRankData(1, 0, 0, "none"))
                     .serialize(PlayerRankData.CODEC) // Tells it to save to the player file
                     .copyOnDeath() // Keeps data when they respawn!
                     .build());

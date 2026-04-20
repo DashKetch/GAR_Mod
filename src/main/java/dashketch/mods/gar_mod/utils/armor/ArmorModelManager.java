@@ -6,20 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import dashketch.mods.gar_mod.global.GlobalMorphs.ArmorType;
 
 public class ArmorModelManager {
-
-    // Add all your future types here
-    public enum ArmorType {
-        CADET,
-        TROOPER,
-        LANCE,
-        SERGEANT,
-        WARRANT1,
-        WARRANT2,
-        WARRANT3,
-        OFFICER
-    }
 
     public static HumanoidModel<LivingEntity> getModelForType(ArmorType type, EquipmentSlot slot) {
         HumanoidModel<LivingEntity> model;

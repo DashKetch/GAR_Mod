@@ -39,7 +39,8 @@ public class AddPowerCommand {
                                             target.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
                                                     oldData.rank,
                                                     newPowerAmount,
-                                                    oldData.tickCounter
+                                                    oldData.tickCounter,
+                                                    oldData.team
                                             ));
 
                                             // 5. Feedback
