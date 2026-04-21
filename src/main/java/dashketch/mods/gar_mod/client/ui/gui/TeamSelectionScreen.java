@@ -38,6 +38,7 @@ public class TeamSelectionScreen extends Screen {
     private void select(String team) {
         System.out.println("Handshaking with server: Joining " + team);
         // Packet logic goes here next!
+        //TODO: Fix gui with packets
         this.onClose();
     }
 

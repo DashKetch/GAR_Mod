@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.neoforged.neoforgespi.ILaunchContext.LOGGER;
+
 @Mixin(AbstractClientPlayer.class)
 public class PlayerMixin {
 
@@ -26,7 +28,13 @@ public class PlayerMixin {
             return;
         }
 
-        // 4. If they are Republic (or anything else), force the skin
-        cir.setReturnValue(GlobalSkins.FLIGHT_SUIT);
+        // 4. If they are Republic, force the skin
+        if (data.team.equals("republic")) {
+            cir.setReturnValue(GlobalSkins.FLIGHT_SUIT);
+        }
+
+        if (data.team.equals("raider")) {
+            LOGGER.info("Player {} is on the raider team - loading their morph.", player.getName().getString());
+        }
     }
 }

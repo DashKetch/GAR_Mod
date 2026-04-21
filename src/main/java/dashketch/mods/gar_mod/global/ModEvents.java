@@ -1,14 +1,19 @@
 package dashketch.mods.gar_mod.global;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.client.model.raider;
+import dashketch.mods.gar_mod.client.render.RaiderLayer;
 import dashketch.mods.gar_mod.client.ui.gui.TeamSelectionScreen;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.sql.Time;
@@ -73,4 +78,23 @@ public class ModEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(raider.LAYER_LOCATION, raider::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+        // Add to standard players (Steve)
+        PlayerRenderer defaultRenderer = event.getSkin(PlayerSkin.Model.valueOf("default"));
+        if (defaultRenderer != null) {
+            defaultRenderer.addLayer(new RaiderLayer(defaultRenderer, event.getEntityModels()));
+        }
+
+        // Add to slim players (Alex)
+        PlayerRenderer slimRenderer = event.getSkin(PlayerSkin.Model.valueOf("slim"));
+        if (slimRenderer != null) {
+            slimRenderer.addLayer(new RaiderLayer(slimRenderer, event.getEntityModels()));
+        }
+    }
 }

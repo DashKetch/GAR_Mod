@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 @Mod(Gar_mod.MODID)
 public class Gar_mod {
     public static final String MODID = "gar_mod";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
