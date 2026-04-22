@@ -3,18 +3,22 @@ package dashketch.mods.gar_mod.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dashketch.mods.gar_mod.Gar_mod;
-import net.minecraft.client.model.EntityModel;
+import dashketch.mods.gar_mod.client.render.raiderAnimation;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
 
-public class raider<T extends LivingEntity> extends EntityModel<T> {
+public class raider<T extends LivingEntity> extends HierarchicalModel<T> {
+
+	public final AnimationState walkingState = new AnimationState();
+	public final AnimationState hitState = new AnimationState();
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
 			ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "raider"), "main");
@@ -25,14 +29,20 @@ public class raider<T extends LivingEntity> extends EntityModel<T> {
 	public final ModelPart RightArm;
 	public final ModelPart RightLeg;
 	public final ModelPart LeftLeg;
+	private final ModelPart root;
 
 	public raider(ModelPart root) {
+		this.root = root;
 		this.Waist = root.getChild("Waist");
 		this.Head = this.Waist.getChild("Head");
 		this.LeftArm = this.Waist.getChild("LeftArm");
 		this.RightArm = this.Waist.getChild("RightArm");
 		this.RightLeg = root.getChild("RightLeg");
 		this.LeftLeg = root.getChild("LeftLeg");
+	}
+
+	public @NotNull ModelPart root() {
+		return this.root;
 	}
 
 	@SuppressWarnings("unused")
@@ -97,13 +107,25 @@ public class raider<T extends LivingEntity> extends EntityModel<T> {
 	                      float netHeadYaw,
 	                      float headPitch) {
 
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+
 		this.Head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.Head.xRot = headPitch * ((float) Math.PI / 180F);
 
-		this.RightLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.0F * limbSwingAmount;
-		this.LeftLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.0F * limbSwingAmount;
-		this.RightArm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.8F * limbSwingAmount;
-		this.LeftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 0.8F * limbSwingAmount;
+		if (limbSwingAmount > 0.05F) {
+			this.walkingState.startIfStopped(entity.tickCount);
+		} else {
+			this.walkingState.stop();
+		}
+
+		if (entity.swinging) {
+			this.hitState.startIfStopped(entity.tickCount);
+		} else {
+			this.hitState.stop();
+		}
+
+		this.animate(this.walkingState, raiderAnimation.walking, ageInTicks, 1.0F);
+		this.animate(this.hitState, raiderAnimation.hit, ageInTicks, 1.0F);
 	}
 
 	@Override
