@@ -1,11 +1,13 @@
 package dashketch.mods.gar_mod.client.ui.gui;
 
 import dashketch.mods.gar_mod.client.ui.gui.widget.TeamButton;
+import dashketch.mods.gar_mod.network.ModNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public class TeamSelectionScreen extends Screen {
@@ -37,8 +39,7 @@ public class TeamSelectionScreen extends Screen {
 
     private void select(String team) {
         System.out.println("Handshaking with server: Joining " + team);
-        // Packet logic goes here next!
-        //TODO: Fix gui with packets
+        PacketDistributor.sendToServer(new ModNetworking.SelectTeamPayload(team));
         this.onClose();
     }
 
