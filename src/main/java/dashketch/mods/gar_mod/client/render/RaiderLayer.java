@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class RaiderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
@@ -30,8 +31,8 @@ public class RaiderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<A
     }
 
     @Override
-    public void render(PoseStack poseStack,
-                       MultiBufferSource buffer,
+    public void render(@NotNull PoseStack poseStack,
+                       @NotNull MultiBufferSource buffer,
                        int packedLight,
                        AbstractClientPlayer player,
                        float limbSwing,
@@ -52,12 +53,11 @@ public class RaiderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<A
             poseStack.mulPose(Axis.XP.rotationDegrees(0));
 
             // 2. Scale the droid (B1s are tall!)
-            float scale = 1.2F;
+            float scale = 1.9f;
             poseStack.scale(scale, scale, scale);
 
-            // 3. IMPORTANT: If he's still in the ground, adjust this Y value.
-            // Positive Y moves DOWN, Negative Y moves UP.
-            poseStack.translate(0.0, -1.5, 0.0);
+            // Translation key - Positive Y moves DOWN, Negative Y moves UP.
+            poseStack.translate(0.0, -0.72, 0.0);
 
             this.droidModel.setupAnim(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
