@@ -111,9 +111,14 @@ public class raider<T extends LivingEntity> extends HierarchicalModel<T> {
 
 		this.Head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.Head.xRot = headPitch * ((float) Math.PI / 180F);
+		float animationSpeed = 1.0f; // Default speed
 
-		if (limbSwingAmount > 0.05F) {
+		if (limbSwingAmount > 0.7f) { // Sprinting threshold
 			this.walkingState.startIfStopped(entity.tickCount);
+			animationSpeed = 2.0f; // Play 2x faster (I know sprinting is only 1.3x faster, but this looks better.)
+		} else if (limbSwingAmount > 0.05f) { // Walking
+			this.walkingState.startIfStopped(entity.tickCount);
+			animationSpeed = 1.0f;
 		} else {
 			this.walkingState.stop();
 		}
@@ -124,8 +129,8 @@ public class raider<T extends LivingEntity> extends HierarchicalModel<T> {
 			this.hitState.stop();
 		}
 
-		this.animate(this.walkingState, raiderAnimation.walking, ageInTicks, 1.0F);
-		this.animate(this.hitState, raiderAnimation.hit, ageInTicks, 1.0F);
+		this.animate(this.walkingState, raiderAnimation.walking, ageInTicks, animationSpeed);
+		this.animate(this.hitState, raiderAnimation.hit, ageInTicks, animationSpeed);
 	}
 
 	@Override
