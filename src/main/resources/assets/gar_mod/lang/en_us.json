@@ -7,5 +7,9 @@
   "item.gar_mod.trooper_helmet": "Trooper Helmet",
   "item.gar_mod.trooper_chestplate": "Trooper Chestplate",
   "item.gar_mod.trooper_leggings": "Trooper Leggings",
-  "item.gar_mod.trooper_boots": "Trooper Boots"
+  "item.gar_mod.trooper_boots": "Trooper Boots",
+  "item.gar_mod.lance_helmet": "lance Corporal Helmet",
+  "item.gar_mod.lance_chestplate": "lance Corporal Chestplate",
+  "item.gar_mod.lance_leggings": "lance Corporal Leggings",
+  "item.gar_mod.lance_boots": "lance Corporal Boots"
 }
