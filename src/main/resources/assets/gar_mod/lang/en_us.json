@@ -11,5 +11,7 @@
   "item.gar_mod.lance_helmet": "lance Corporal Helmet",
   "item.gar_mod.lance_chestplate": "lance Corporal Chestplate",
   "item.gar_mod.lance_leggings": "lance Corporal Leggings",
-  "item.gar_mod.lance_boots": "lance Corporal Boots"
+  "item.gar_mod.lance_boots": "lance Corporal Boots",
+  "key.categories.gar_mod_utils": "GAR Mod Utils",
+  "key.gar_mod.reset": "Reset to choose team"
 }

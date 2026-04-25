@@ -6,6 +6,8 @@ import dashketch.mods.gar_mod.client.model.cadet;
 import dashketch.mods.gar_mod.client.model.lance;
 import dashketch.mods.gar_mod.client.model.trooper;
 import dashketch.mods.gar_mod.global.GlobalMorphs;
+import dashketch.mods.gar_mod.network.ResetPayload;
+import dashketch.mods.gar_mod.server.events.ResetHandler;
 import dashketch.mods.gar_mod.utils.armor.GarArmorItem;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
@@ -26,6 +28,8 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
@@ -102,6 +106,7 @@ public class Gar_mod {
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerPackets);
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
@@ -112,6 +117,15 @@ public class Gar_mod {
 
         // This registers 'onServerStarting' to the FORGE bus
         NeoForge.EVENT_BUS.register(this);
+    }
+
+    private void registerPackets(final RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar(MODID);
+        registrar.playToServer(
+                ResetPayload.TYPE,
+                ResetPayload.STREAM_CODEC,
+                ResetHandler::handle
+        );
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -25,7 +25,7 @@ public class ModNetworking {
     // --- 1. THE PACKETS (PAYLOADS) ---
 
     // Packet from Client -> Server (I chose a team!)
-    public static record SelectTeamPayload(String team) implements CustomPacketPayload {
+    public record SelectTeamPayload(String team) implements CustomPacketPayload {
         public static final Type<SelectTeamPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "select_team"));
         public static final StreamCodec<ByteBuf, SelectTeamPayload> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.STRING_UTF8, SelectTeamPayload::team, SelectTeamPayload::new
@@ -34,7 +34,7 @@ public class ModNetworking {
     }
 
     // Packet from Server -> Client (Hey everyone, this player changed teams!)
-    public static record SyncTeamPayload(int entityId, String team) implements CustomPacketPayload {
+    public record SyncTeamPayload(int entityId, String team) implements CustomPacketPayload {
         public static final Type<SyncTeamPayload> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "sync_team"));
         public static final StreamCodec<ByteBuf, SyncTeamPayload> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.INT, SyncTeamPayload::entityId,
