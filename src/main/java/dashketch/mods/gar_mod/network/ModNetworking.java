@@ -1,6 +1,7 @@
 package dashketch.mods.gar_mod.network;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.server.events.ResetHandler;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import io.netty.buffer.ByteBuf;
@@ -63,12 +64,22 @@ public class ModNetworking {
         context.enqueueWork(() -> {
             Player player = context.player();
             if (player instanceof ServerPlayer serverPlayer) {
-                // Get old data and update it with the new team
-                PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
-                player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(oldData.rank, oldData.points, oldData.tickCounter, payload.team()));
+                // 1. Get the NEW team from the packet
+                String newTeam = payload.team();
 
-                // Tell this player AND everyone looking at them about the new team
-                PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new SyncTeamPayload(serverPlayer.getId(), payload.team()));
+                // DEBUG: See what's happening in your console!
+                System.out.println("Switching " + serverPlayer.getName().getString() + " to team: " + newTeam);
+
+                // 2. Update the data attachment FIRST
+                PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
+                player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(oldData.rank, oldData.points, oldData.tickCounter, newTeam));
+
+                // 3. Force the inventory clear/restore based on the NEW team name explicitly
+                // We pass 'newTeam' directly to ensure it doesn't use the old data
+                ResetHandler.restoreTeamInventory(serverPlayer, newTeam);
+
+                // 4. Sync
+                PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new SyncTeamPayload(serverPlayer.getId(), newTeam));
             }
         });
     }

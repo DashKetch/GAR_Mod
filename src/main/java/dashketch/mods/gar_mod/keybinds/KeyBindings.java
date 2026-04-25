@@ -20,7 +20,7 @@ public class KeyBindings {
         RESET = new KeyMapping(
                 "key.gar_mod.reset",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_Z,
+                GLFW.GLFW_KEY_K,
                 CATEGORY
         );
 

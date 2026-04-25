@@ -18,6 +18,8 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.Arrays;
 import java.util.List;
 
+import static dashketch.mods.gar_mod.server.events.ResetHandler.restoreTeamInventory;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ChangeTeamCommand {
 
