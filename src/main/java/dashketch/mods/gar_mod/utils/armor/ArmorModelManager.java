@@ -2,6 +2,7 @@ package dashketch.mods.gar_mod.utils.armor;
 
 import dashketch.mods.gar_mod.client.model.cadet;
 import dashketch.mods.gar_mod.client.model.lance;
+import dashketch.mods.gar_mod.client.model.officer;
 import dashketch.mods.gar_mod.client.model.trooper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -22,6 +23,7 @@ public class ArmorModelManager {
             // Add more cases here as you create the new model classes:
             // case LANCE -> model = new lance<>(...);
             case LANCE -> model = new lance<>(Minecraft.getInstance().getEntityModels().bakeLayer(lance.LAYER_LOCATION));
+            case OFFICER -> model = new officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(officer.LAYER_LOCATION));
             default -> model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
         }
 

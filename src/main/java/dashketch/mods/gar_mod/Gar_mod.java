@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import dashketch.mods.gar_mod.client.model.cadet;
 import dashketch.mods.gar_mod.client.model.lance;
+import dashketch.mods.gar_mod.client.model.officer;
 import dashketch.mods.gar_mod.client.model.trooper;
 import dashketch.mods.gar_mod.global.GlobalMorphs;
 import dashketch.mods.gar_mod.network.ResetPayload;
@@ -85,6 +86,18 @@ public class Gar_mod {
     public static final DeferredItem<Item> LANCE_BOOTS = ITEMS.registerItem("lance_boots",
             properties -> new GarArmorItem(ModArmorMaterials.LANCE, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.LANCE));
 
+    public static final DeferredItem<Item> OFFICER_HELMET = ITEMS.registerItem("officer_helmet",
+            properties -> new GarArmorItem(ModArmorMaterials.OFFICER, ArmorItem.Type.HELMET, properties.stacksTo(1), GlobalMorphs.ArmorType.OFFICER));
+
+    public static final DeferredItem<Item> OFFICER_CHESTPLATE = ITEMS.registerItem("officer_chestplate",
+            properties -> new GarArmorItem(ModArmorMaterials.OFFICER, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1), GlobalMorphs.ArmorType.OFFICER));
+
+    public static final DeferredItem<Item> OFFICER_LEGGINGS = ITEMS.registerItem("officer_leggings",
+            properties -> new GarArmorItem(ModArmorMaterials.OFFICER, ArmorItem.Type.LEGGINGS, properties.stacksTo(1), GlobalMorphs.ArmorType.OFFICER));
+
+    public static final DeferredItem<Item> OFFICER_BOOTS = ITEMS.registerItem("officer_boots",
+            properties -> new GarArmorItem(ModArmorMaterials.OFFICER, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.OFFICER));
+
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_TAB = CREATIVE_MODE_TABS.register("gar_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.gar_mod"))
@@ -102,6 +115,10 @@ public class Gar_mod {
                 output.accept(LANCE_LEGGINGS.get());
                 output.accept(LANCE_CHESTPLATE.get());
                 output.accept(LANCE_HELMET.get());
+                output.accept( OFFICER_BOOTS.get());
+                output.accept( OFFICER_LEGGINGS.get());
+                output.accept( OFFICER_CHESTPLATE.get());
+                output.accept( OFFICER_HELMET.get());
             }).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
@@ -152,6 +169,7 @@ public class Gar_mod {
             event.registerLayerDefinition(cadet.LAYER_LOCATION, cadet::createBodyLayer);
             event.registerLayerDefinition(trooper.LAYER_LOCATION, trooper::createBodyLayer);
             event.registerLayerDefinition(lance.LAYER_LOCATION, lance::createBodyLayer);
+            event.registerLayerDefinition(officer.LAYER_LOCATION, officer::createBodyLayer);
             LOGGER.info("GAR_MOD: Registered armor layers");
         }
     }
