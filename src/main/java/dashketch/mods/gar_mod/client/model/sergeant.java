@@ -8,10 +8,10 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
-public class lance<T extends LivingEntity> extends HumanoidModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("gar_mod", "lance"), "main");
+public class sergeant<T extends LivingEntity> extends HumanoidModel<T> {
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("gar_mod", "sergeant"), "main");
 
-	public lance(ModelPart root) {
+	public sergeant(ModelPart root) {
 		super(root);
 	}
 

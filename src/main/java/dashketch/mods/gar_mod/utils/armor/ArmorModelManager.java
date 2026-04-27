@@ -1,9 +1,6 @@
 package dashketch.mods.gar_mod.utils.armor;
 
-import dashketch.mods.gar_mod.client.model.cadet;
-import dashketch.mods.gar_mod.client.model.lance;
-import dashketch.mods.gar_mod.client.model.officer;
-import dashketch.mods.gar_mod.client.model.trooper;
+import dashketch.mods.gar_mod.client.model.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -20,9 +17,9 @@ public class ArmorModelManager {
             case TROOPER -> model = new trooper<>(Minecraft.getInstance().getEntityModels().bakeLayer(trooper.LAYER_LOCATION));
             case CADET -> //noinspection DuplicateBranchesInSwitch
                     model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
-            // Add more cases here as you create the new model classes:
-            // case LANCE -> model = new lance<>(...);
-            case LANCE -> model = new lance<>(Minecraft.getInstance().getEntityModels().bakeLayer(lance.LAYER_LOCATION));
+            // Add more cases here as I create the new model classes:
+            // case SERGEANT -> model = new sergeant<>(...);
+            case SERGEANT -> model = new sergeant<>(Minecraft.getInstance().getEntityModels().bakeLayer(sergeant.LAYER_LOCATION));
             case OFFICER -> model = new officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(officer.LAYER_LOCATION));
             default -> model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
         }
