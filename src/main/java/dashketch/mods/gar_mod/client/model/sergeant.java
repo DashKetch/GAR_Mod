@@ -37,7 +37,7 @@ public class sergeant<T extends LivingEntity> extends HumanoidModel<T> {
 						.texOffs(3, 1).addBox(-4.75F, -14.0F, -0.25F, 0.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)),
 				PartPose.ZERO);
 		head.addOrReplaceChild("cube_r1", CubeListBuilder.create()
-						.texOffs(52, 27).addBox(0.0F, 0.0F, -2.0F, 1.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)),
+						.texOffs(54, 27).addBox(0.0F, 0.0F, -2.0F, 1.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)),
 				PartPose.offsetAndRotation(-4.25F, -14.0F, -0.5F, 0.0F, -1.5708F, 0.0F));
 		head.addOrReplaceChild("cube_r2", CubeListBuilder.create()
 						.texOffs(3, 1).addBox(-0.25F, -4.0F, -0.25F, 0.0F, 8.0F, 1.0F, new CubeDeformation(0.0F)),
