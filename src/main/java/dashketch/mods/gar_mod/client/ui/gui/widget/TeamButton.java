@@ -35,11 +35,11 @@ public class TeamButton extends Button {
         // 3. Draw the Icon Texture
         RenderSystem.enableBlend();
         // Render the icon slightly inset from the colored background
-        int textureSize = width - 5; // Makes it a bit smaller than the colored box
+        int textureSize = width - 5;
         int textureX = getX() + (width - textureSize) / 2;
         int textureY = getY() + (iconAreaHeight - textureSize) / 2;
 
-        guiGraphics.blit(teamIcon, textureX, textureY, 0, 0, textureSize, textureSize, textureSize, textureSize);
+        guiGraphics.blit(teamIcon, textureX + 1, textureY + 3, 0, 0, textureSize, textureSize, textureSize, textureSize + 14);
         RenderSystem.disableBlend();
 
         // 4. Draw the Border
