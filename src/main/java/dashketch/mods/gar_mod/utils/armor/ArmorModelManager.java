@@ -21,6 +21,7 @@ public class ArmorModelManager {
             // case SERGEANT -> model = new sergeant<>(...);
             case SERGEANT -> model = new sergeant<>(Minecraft.getInstance().getEntityModels().bakeLayer(sergeant.LAYER_LOCATION));
             case OFFICER -> model = new officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(officer.LAYER_LOCATION));
+            case LANCE -> model = new lance<>(Minecraft.getInstance().getEntityModels().bakeLayer(lance.LAYER_LOCATION));
             default -> model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
         }
 

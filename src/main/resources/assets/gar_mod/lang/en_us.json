@@ -17,5 +17,9 @@
   "item.gar_mod.officer_helmet": "Officer Helmet",
   "item.gar_mod.officer_chestplate": "Officer Chestplate",
   "item.gar_mod.officer_leggings": "Officer Leggings",
-  "item.gar_mod.officer_boots": "Officer Boots"
+  "item.gar_mod.officer_boots": "Officer Boots",
+  "item.gar_mod.lance_helmet": "Lance Helmet",
+  "item.gar_mod.lance_chestplate": "Lance Chestplate",
+  "item.gar_mod.lance_leggings": "Lance Leggings",
+  "item.gar_mod.lance_boots": "Lance Boots"
 }
