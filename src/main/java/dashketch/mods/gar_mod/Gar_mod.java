@@ -120,6 +120,10 @@ public class Gar_mod {
                 output.accept(TROOPER_CHESTPLATE.get());
                 output.accept(TROOPER_LEGGINGS.get());
                 output.accept(TROOPER_BOOTS.get());
+                output.accept( LANCE_BOOTS.get());
+                output.accept( LANCE_LEGGINGS.get());
+                output.accept( LANCE_CHESTPLATE.get());
+                output.accept( LANCE_HELMET.get());
                 output.accept(SERGEANT_BOOTS.get());
                 output.accept(SERGEANT_LEGGINGS.get());
                 output.accept(SERGEANT_CHESTPLATE.get());
@@ -128,10 +132,6 @@ public class Gar_mod {
                 output.accept( OFFICER_LEGGINGS.get());
                 output.accept( OFFICER_CHESTPLATE.get());
                 output.accept( OFFICER_HELMET.get());
-                output.accept( LANCE_BOOTS.get());
-                output.accept( LANCE_LEGGINGS.get());
-                output.accept( LANCE_CHESTPLATE.get());
-                output.accept( LANCE_HELMET.get());
             }).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
