@@ -119,6 +119,18 @@ public class Gar_mod {
     public static final DeferredItem<Item> WO_BOOTS = ITEMS.registerItem("wo_boots",
             properties -> new GarArmorItem(ModArmorMaterials.WO, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT1));
 
+    public static final DeferredItem<Item> UWO_HELMET = ITEMS.registerItem("uwo_helmet",
+            properties -> new GarArmorItem(ModArmorMaterials.UWO, ArmorItem.Type.HELMET, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT2));
+
+    public static final DeferredItem<Item> UWO_CHESTPLATE = ITEMS.registerItem("uwo_chestplate",
+            properties -> new GarArmorItem(ModArmorMaterials.UWO, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT2));
+
+    public static final DeferredItem<Item> UWO_LEGGINGS = ITEMS.registerItem("uwo_leggings",
+            properties -> new GarArmorItem(ModArmorMaterials.UWO, ArmorItem.Type.LEGGINGS, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT2));
+
+    public static final DeferredItem<Item> UWO_BOOTS = ITEMS.registerItem("uwo_boots",
+            properties -> new GarArmorItem(ModArmorMaterials.UWO, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT2));
+
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_TAB = CREATIVE_MODE_TABS.register("gar_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.gar_mod"))
@@ -132,10 +144,10 @@ public class Gar_mod {
                 output.accept(TROOPER_CHESTPLATE.get());
                 output.accept(TROOPER_LEGGINGS.get());
                 output.accept(TROOPER_BOOTS.get());
-                output.accept( LANCE_BOOTS.get());
-                output.accept( LANCE_LEGGINGS.get());
-                output.accept( LANCE_CHESTPLATE.get());
-                output.accept( LANCE_HELMET.get());
+                output.accept(LANCE_BOOTS.get());
+                output.accept(LANCE_LEGGINGS.get());
+                output.accept(LANCE_CHESTPLATE.get());
+                output.accept(LANCE_HELMET.get());
                 output.accept(SERGEANT_BOOTS.get());
                 output.accept(SERGEANT_LEGGINGS.get());
                 output.accept(SERGEANT_CHESTPLATE.get());
@@ -144,10 +156,14 @@ public class Gar_mod {
                 output.accept(WO_LEGGINGS.get());
                 output.accept(WO_CHESTPLATE.get());
                 output.accept(WO_HELMET.get());
-                output.accept( OFFICER_BOOTS.get());
-                output.accept( OFFICER_LEGGINGS.get());
-                output.accept( OFFICER_CHESTPLATE.get());
-                output.accept( OFFICER_HELMET.get());
+                output.accept(UWO_BOOTS.get());
+                output.accept(UWO_LEGGINGS.get());
+                output.accept(UWO_CHESTPLATE.get());
+                output.accept(UWO_HELMET.get());
+                output.accept(OFFICER_BOOTS.get());
+                output.accept(OFFICER_LEGGINGS.get());
+                output.accept(OFFICER_CHESTPLATE.get());
+                output.accept(OFFICER_HELMET.get());
             }).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
@@ -201,6 +217,7 @@ public class Gar_mod {
             event.registerLayerDefinition(officer.LAYER_LOCATION, officer::createBodyLayer);
             event.registerLayerDefinition(lance.LAYER_LOCATION, lance::createBodyLayer);
             event.registerLayerDefinition(warrant_officer.LAYER_LOCATION, warrant_officer::createBodyLayer);
+            event.registerLayerDefinition(upper_warrant_officer.LAYER_LOCATION, upper_warrant_officer::createBodyLayer);
             LOGGER.info("GAR_MOD: Registered armor layers");
         }
     }

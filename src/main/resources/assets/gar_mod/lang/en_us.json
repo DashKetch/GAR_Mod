@@ -25,5 +25,13 @@
   "item.gar_mod.wo_helmet": "Warrant Officer Helmet",
   "item.gar_mod.wo_chestplate": "Warrant Officer Chestplate",
   "item.gar_mod.wo_leggings": "Warrant Officer Leggings",
-  "item.gar_mod.wo_boots": "Warrant Officer Boots"
+  "item.gar_mod.wo_boots": "Warrant Officer Boots",
+  "item.gar_mod.uwo_helmet": "Upper Warrant Officer Helmet",
+  "item.gar_mod.uwo_chestplate": "Upper Warrant Officer Chestplate",
+  "item.gar_mod.uwo_leggings": "Upper Warrant Officer Leggings",
+  "item.gar_mod.uwo_boots": "Upper Warrant Officer Boots",
+  "item.gar_mod.cwo_helmet": "Chief Warrant Officer Helmet",
+  "item.gar_mod.cwo_chestplate": "Chief Warrant Officer Chestplate",
+  "item.gar_mod.cwo_leggings": "Chief Warrant Officer Leggings",
+  "item.gar_mod.cwo_boots": "Chief Warrant Officer Boots"
 }
