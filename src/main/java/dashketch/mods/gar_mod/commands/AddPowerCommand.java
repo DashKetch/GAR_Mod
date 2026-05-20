@@ -12,6 +12,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
+import static dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class AddPowerCommand {
 
@@ -29,15 +31,15 @@ public class AddPowerCommand {
 
                                             // 2. Fetch current data
                                             PlayerRankData oldData = target.getData(ModAttachments.PLAYER_RANK);
-                                            int calculatedRank = PlayerRankData.getRankForPoints(powerAmount);
-
+                                            int oldPower = oldData.points;
                                             // 3. Add power to current
-                                            int newPowerAmount = calculatedRank + powerAmount;
+                                            int newPowerAmount = oldPower + powerAmount;
+                                            int calculatedRank = PlayerRankData.getRankForPoints(newPowerAmount);
+
 
                                             // 4. Update only the points (preserving rank and ticks)
-                                            // Or reset rank to 1 so the tick event re-calculates it based on new points
                                             target.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
-                                                    oldData.rank,
+                                                    calculatedRank,
                                                     newPowerAmount,
                                                     oldData.tickCounter,
                                                     oldData.team
@@ -47,6 +49,8 @@ public class AddPowerCommand {
                                             context.getSource().sendSuccess(() ->
                                                     Component.literal("Added " + powerAmount + " power to " + target.getScoreboardName() + "'s power."), true);
 
+                                            // 6. Set new morph
+                                            if (oldData.rank < calculatedRank) {setMorph(target);}
                                             return 1;
                                         })
                                 )

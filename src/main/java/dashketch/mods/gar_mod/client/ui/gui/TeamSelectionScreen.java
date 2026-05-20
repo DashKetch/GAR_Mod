@@ -33,13 +33,13 @@ public class TeamSelectionScreen extends Screen {
         int startY = (this.height - cardHeight) / 2;
 
         // Immigrant - Green Placeholder
-        this.addRenderableWidget(new TeamButton(startX, startY, cardWidth, cardHeight, "Immigrant", 0xFF55FF55, (b) -> select("immigrant"), IM_TEXTURE));
+        this.addRenderableWidget(new TeamButton(startX, startY, cardWidth, cardHeight, "Immigrant", 0xFF55FF55, (b) -> select("immigrant"), null, IM_TEXTURE));
 
         // Raider - Red Placeholder
-        this.addRenderableWidget(new TeamButton(startX + cardWidth + spacing, startY, cardWidth, cardHeight, "Raider", 0xFFFF5555, (b) -> select("raider"), RDR_TEXTURE));
+        this.addRenderableWidget(new TeamButton(startX + cardWidth + spacing, startY, cardWidth, cardHeight, "Raider", 0xFFFF5555, (b) -> select("raider"), null, RDR_TEXTURE));
 
         // Republic - Blue Placeholder
-        this.addRenderableWidget(new TeamButton(startX + (cardWidth + spacing) * 2, startY, cardWidth, cardHeight, "Republic", 0xFF5555FF, (b) -> select("republic"), REP_TEXTURE));
+        this.addRenderableWidget(new TeamButton(startX + (cardWidth + spacing) * 2, startY, cardWidth, cardHeight, "Republic", 0xFF5555FF, (b) -> select("republic"), null /* Will be for rank checking & armor assigning logic*/, REP_TEXTURE));
     }
 
     private void select(String team) {
