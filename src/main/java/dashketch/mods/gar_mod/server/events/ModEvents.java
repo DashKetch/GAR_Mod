@@ -12,6 +12,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import java.util.Objects;
+
+import static dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ModEvents {
 
@@ -21,6 +25,8 @@ public class ModEvents {
 
         ServerPlayer player = (ServerPlayer) event.getEntity();
         PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
+
+        if (Objects.equals(oldData.team, "republic")) {
 
         int newTicks = oldData.tickCounter + 1;
         int newPoints = oldData.points;
@@ -33,9 +39,11 @@ public class ModEvents {
             if (newPoints >= pointsNeeded) {
                 newRank++;
                 player.sendSystemMessage(Component.literal("§aCongratulations! You have reached Rank " + newRank + "!"));
+                setMorph(player);
             }
         }
         player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(newRank, newPoints, newTicks, oldData.team));
+        }
     }
 
     @SubscribeEvent
@@ -52,6 +60,7 @@ public class ModEvents {
         return switch (currentRank) {
             case 1 -> 2; case 2 -> 15; case 3 -> 40;
             case 4 -> 100; case 5 -> 150; case 6 -> 210;
+            case 7 -> 300; case 8 -> 420 /* nice 😝 */;
             default -> Integer.MAX_VALUE;
         };
     }

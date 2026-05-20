@@ -12,8 +12,8 @@ public class TeamButton extends Button {
     private final int color;
     private final ResourceLocation teamIcon; // Store the icon path
 
-    public TeamButton(int x, int y, int width, int height, String teamTitle, int hexColor, OnPress onPress, ResourceLocation teamIcon) {
-        super(x, y, width, height, Component.literal(""), onPress, DEFAULT_NARRATION);
+    public TeamButton(int x, int y, int width, int height, String teamTitle, int hexColor, OnPress onPress1, OnPress onPress2, ResourceLocation teamIcon) {
+        super(x, y, width, height, Component.literal(""), onPress1, DEFAULT_NARRATION);
         this.teamTitle = teamTitle;
         this.color = hexColor;
         this.teamIcon = teamIcon;

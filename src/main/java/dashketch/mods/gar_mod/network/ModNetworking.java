@@ -67,7 +67,6 @@ public class ModNetworking {
                 // 1. Get the NEW team from the packet
                 String newTeam = payload.team();
 
-                // DEBUG: See what's happening in your console!
                 System.out.println("Switching " + serverPlayer.getName().getString() + " to team: " + newTeam);
 
                 // 2. Update the data attachment FIRST
@@ -75,10 +74,14 @@ public class ModNetworking {
                 player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(oldData.rank, oldData.points, oldData.tickCounter, newTeam));
 
                 // 3. Force the inventory clear/restore based on the NEW team name explicitly
-                // We pass 'newTeam' directly to ensure it doesn't use the old data
                 ResetHandler.restoreTeamInventory(serverPlayer, newTeam);
 
-                // 4. Sync
+                // --- 4. CALL THE MORPH LOGIC HERE ---
+                if (newTeam.equalsIgnoreCase("republic")) {
+                    dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph(serverPlayer);
+                }
+
+                // 5. Sync to everyone else
                 PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new SyncTeamPayload(serverPlayer.getId(), newTeam));
             }
         });

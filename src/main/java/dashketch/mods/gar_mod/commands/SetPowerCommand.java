@@ -12,6 +12,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
+import static dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class SetPowerCommand {
 
@@ -32,7 +34,6 @@ public class SetPowerCommand {
                                             int calculatedRank = PlayerRankData.getRankForPoints(newPower);
 
                                             // 3. Update only the points (preserving rank and ticks)
-                                            // Or reset rank to 1 so the tick event re-calculates it based on new points
 
                                             target.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
                                                     calculatedRank,
@@ -44,6 +45,9 @@ public class SetPowerCommand {
                                             // 4. Feedback
                                             context.getSource().sendSuccess(() ->
                                                     Component.literal("Set " + target.getScoreboardName() + "'s power to " + newPower), true);
+
+                                            // 5. Set new morph
+                                            if (oldData.rank != calculatedRank) {setMorph(target);}
 
                                             return 1;
                                         })
