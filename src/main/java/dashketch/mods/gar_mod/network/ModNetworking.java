@@ -20,6 +20,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.jetbrains.annotations.NotNull;
 
+import static dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ModNetworking {
 
@@ -76,9 +78,9 @@ public class ModNetworking {
                 // 3. Force the inventory clear/restore based on the NEW team name explicitly
                 ResetHandler.restoreTeamInventory(serverPlayer, newTeam);
 
-                // --- 4. CALL THE MORPH LOGIC HERE ---
+                // 4. Update player morph
                 if (newTeam.equalsIgnoreCase("republic")) {
-                    dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph(serverPlayer);
+                    setMorph(serverPlayer);
                 }
 
                 // 5. Sync to everyone else
