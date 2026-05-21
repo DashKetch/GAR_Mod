@@ -14,17 +14,17 @@ public class ArmorModelManager {
 
         // Use a switch statement to pick the right model
         switch (type) {
-            case TROOPER -> model = new trooper<>(Minecraft.getInstance().getEntityModels().bakeLayer(trooper.LAYER_LOCATION));
             case CADET -> //noinspection DuplicateBranchesInSwitch
                     model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
+            case TROOPER -> model = new trooper<>(Minecraft.getInstance().getEntityModels().bakeLayer(trooper.LAYER_LOCATION));
             // Add more cases here as I create the new model classes:
             // case SERGEANT -> model = new sergeant<>(...);
-            case SERGEANT -> model = new sergeant<>(Minecraft.getInstance().getEntityModels().bakeLayer(sergeant.LAYER_LOCATION));
-            case OFFICER -> model = new officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(officer.LAYER_LOCATION));
             case LANCE -> model = new lance<>(Minecraft.getInstance().getEntityModels().bakeLayer(lance.LAYER_LOCATION));
+            case SERGEANT -> model = new sergeant<>(Minecraft.getInstance().getEntityModels().bakeLayer(sergeant.LAYER_LOCATION));
             case WARRANT1 -> model = new warrant_officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(warrant_officer.LAYER_LOCATION));
             case WARRANT2 -> model = new upper_warrant_officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(upper_warrant_officer.LAYER_LOCATION));
             case WARRANT3 -> model = new chief_warrant_officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(chief_warrant_officer.LAYER_LOCATION));
+            case OFFICER -> model = new officer<>(Minecraft.getInstance().getEntityModels().bakeLayer(officer.LAYER_LOCATION));
             default -> model = new cadet<>(Minecraft.getInstance().getEntityModels().bakeLayer(cadet.LAYER_LOCATION));
         }
 

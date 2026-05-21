@@ -5,6 +5,7 @@ import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -15,7 +16,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.EnumMap;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class ModArmorMaterials {
+    private static final SoundEvent armourSound = SoundEvents.ILLUSIONER_CAST_SPELL;
+    
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS =
             DeferredRegister.create(Registries.ARMOR_MATERIAL, Gar_mod.MODID);
 
@@ -27,7 +31,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/cadet.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "cadet"))),
@@ -43,7 +47,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/trooper.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "trooper"))),
@@ -59,7 +63,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/sergeant.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "sergeant"))),
@@ -75,7 +79,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/lance.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "lance"))),
@@ -91,7 +95,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/wo.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "wo"))),
@@ -107,7 +111,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/uwo.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "uwo"))),
@@ -123,7 +127,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.HELMET, 2);
             }),
             15, // Enchantability
-            SoundEvents.ARMOR_EQUIP_IRON,
+            (Holder<SoundEvent>) armourSound,
             () -> Ingredient.of(Items.IRON_INGOT), // Repair item
             // This MUST match the folder name in textures: assets/gar_mod/textures/models/armor/cwo.png
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Gar_mod.MODID, "cwo"))),

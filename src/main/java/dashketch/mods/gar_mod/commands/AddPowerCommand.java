@@ -32,9 +32,11 @@ public class AddPowerCommand {
                                             // 2. Fetch current data
                                             PlayerRankData oldData = target.getData(ModAttachments.PLAYER_RANK);
                                             int oldPower = oldData.points;
+
                                             // 3. Add power to current
                                             int newPowerAmount = oldPower + powerAmount;
                                             int calculatedRank = PlayerRankData.getRankForPoints(newPowerAmount);
+                                            boolean rankChange = (calculatedRank != 7 && newPowerAmount < 320) || oldData.rank != calculatedRank;
 
 
                                             // 4. Update only the points (preserving rank and ticks)
@@ -50,7 +52,7 @@ public class AddPowerCommand {
                                                     Component.literal("Added " + powerAmount + " power to " + target.getScoreboardName() + "'s power."), true);
 
                                             // 6. Set new morph
-                                            if (oldData.rank != calculatedRank) {setMorph(target);}
+                                            if (rankChange) {setMorph(target);}
                                             return 1;
                                         })
                                 )

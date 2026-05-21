@@ -56,11 +56,11 @@ public class ModEvents {
         }
     }
 
-    private static int getPointsNeededForNextRank(int currentRank) {
+    public static int getPointsNeededForNextRank(int currentRank) {
         return switch (currentRank) {
-            case 1 -> 2; case 2 -> 15; case 3 -> 40;
-            case 4 -> 100; case 5 -> 150; case 6 -> 210;
-            case 7 -> 300; case 8 -> 420 /* nice 😝 */;
+            case 0 -> 0; case 1 -> 2; case 2 -> 15;
+            case 3 -> 40; case 4 -> 100; case 5 -> 150;
+            case 6 -> 210;
             default -> Integer.MAX_VALUE;
         };
     }
