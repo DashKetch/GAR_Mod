@@ -1,6 +1,6 @@
 package dashketch.mods.gar_mod.network;
 
-import dashketch.mods.gar_mod.server.logic.changeRepublicMorph;
+import dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -20,7 +20,7 @@ public class TeamSelectionHandler {
             // 3. Apply the appropriate logic based on the team
             switch (selectedTeam) {
                 case "republic" ->
-                        changeRepublicMorph.setMorph(player);
+                        ChangeRepublicMorph.setMorph(player);
                 case "raider" -> {
                     // Nothing for now
                 }

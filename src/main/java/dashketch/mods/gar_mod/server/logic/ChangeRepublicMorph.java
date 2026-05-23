@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Data-driven class: maps numeric rank -> ArmorSet to avoid many if/switch statements.
  */
-public class changeRepublicMorph {
+public class ChangeRepublicMorph {
 
     // Simple holder for an armor set (head, chest, legs, feet)
         private record ArmorSet(Holder<Item> head, Holder<Item> chest, Holder<Item> legs, Holder<Item> feet) {

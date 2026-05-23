@@ -12,7 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-import static dashketch.mods.gar_mod.server.logic.changeRepublicMorph.setMorph;
+import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class AddPowerCommand {

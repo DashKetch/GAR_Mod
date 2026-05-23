@@ -17,6 +17,12 @@ import static dashketch.mods.gar_mod.Gar_mod.MODID;
 import static dashketch.mods.gar_mod.global.items.ModItems.ITEMS;
 
 public class ModArmor {
+
+    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
+
+    public static final Supplier<AttachmentType<Integer>> SKIN_TYPE = ATTACHMENT_TYPES.register("skin_type", () ->
+            AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+
     public static final DeferredItem<Item> CADET_HELMET = ITEMS.registerItem("cadet_helmet",
             properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.HELMET, properties.stacksTo(1), GlobalMorphs.ArmorType.CADET));
 
@@ -28,11 +34,6 @@ public class ModArmor {
 
     public static final DeferredItem<Item> CADET_BOOTS = ITEMS.registerItem("cadet_boots",
             properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.CADET));
-
-    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MODID);
-
-    public static final Supplier<AttachmentType<Integer>> SKIN_TYPE = ATTACHMENT_TYPES.register("skin_type", () ->
-            AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
 
     public static final DeferredItem<Item> TROOPER_HELMET = ITEMS.registerItem("trooper_helmet",
             properties -> new GarArmorItem(ModArmorMaterials.TROOPER, ArmorItem.Type.HELMET, properties.stacksTo(1), GlobalMorphs.ArmorType.TROOPER));
