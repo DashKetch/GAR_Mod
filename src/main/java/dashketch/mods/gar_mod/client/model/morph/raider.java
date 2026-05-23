@@ -1,4 +1,4 @@
-package dashketch.mods.gar_mod.client.model;
+package dashketch.mods.gar_mod.client.model.morph;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

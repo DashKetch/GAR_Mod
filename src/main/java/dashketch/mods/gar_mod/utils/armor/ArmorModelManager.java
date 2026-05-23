@@ -1,6 +1,6 @@
 package dashketch.mods.gar_mod.utils.armor;
 
-import dashketch.mods.gar_mod.client.model.*;
+import dashketch.mods.gar_mod.client.model.armor.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;

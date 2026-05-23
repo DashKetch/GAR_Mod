@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import dashketch.mods.gar_mod.Gar_mod;
-import dashketch.mods.gar_mod.client.model.raider;
+import dashketch.mods.gar_mod.client.model.morph.raider;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.client.model.PlayerModel;

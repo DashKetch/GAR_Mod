@@ -39,5 +39,7 @@
   "item.gar_mod.cwo_leggings": "Chief Warrant Officer Leggings",
   "item.gar_mod.cwo_boots": "Chief Warrant Officer Boots",
 
-  "item.gar_mod.blaster_rifle": "Blaster Rifle"
+  "item.gar_mod.blaster_rifle": "Blaster Rifle",
+
+  "entity.gar_mod.blaster_bolt": "Blaster Bolt"
 }

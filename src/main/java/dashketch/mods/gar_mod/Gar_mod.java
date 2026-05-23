@@ -1,7 +1,7 @@
 package dashketch.mods.gar_mod;
 
 import com.mojang.logging.LogUtils;
-import dashketch.mods.gar_mod.client.model.*;
+import dashketch.mods.gar_mod.client.model.armor.*;
 import dashketch.mods.gar_mod.network.ResetPayload;
 import dashketch.mods.gar_mod.server.events.ResetHandler;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import static dashketch.mods.gar_mod.global.items.ModItems.*;
 import static dashketch.mods.gar_mod.global.items.ModArmor.*;
 import static dashketch.mods.gar_mod.global.items.ModBlocks.*;
+import static dashketch.mods.gar_mod.global.registries.ModEntities.ENTITY_TYPES;
 
 @Mod(Gar_mod.MODID)
 public class Gar_mod {
@@ -78,9 +79,7 @@ public class Gar_mod {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_ITEM_TAB = CREATIVE_MODE_TABS.register("gar_item_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.gar_mod_items"))
             .icon(() -> BLASTER_RIFLE.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(BLASTER_RIFLE.get());
-            }).build());
+            .displayItems((parameters, output) -> output.accept(BLASTER_RIFLE.get())).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
@@ -90,6 +89,7 @@ public class Gar_mod {
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         ATTACHMENT_TYPES.register(modEventBus);
+        ENTITY_TYPES.register(modEventBus);
         ModArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
         ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
 
