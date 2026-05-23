@@ -1,6 +1,7 @@
-package dashketch.mods.gar_mod.global;
+package dashketch.mods.gar_mod.global.items;
 
 import com.mojang.serialization.Codec;
+import dashketch.mods.gar_mod.global.GlobalMorphs;
 import dashketch.mods.gar_mod.utils.armor.GarArmorItem;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import net.minecraft.world.item.ArmorItem;
@@ -13,11 +14,9 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.function.Supplier;
 
 import static dashketch.mods.gar_mod.Gar_mod.MODID;
+import static dashketch.mods.gar_mod.global.items.ModItems.ITEMS;
 
-public class ModItems {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-
+public class ModArmor {
     public static final DeferredItem<Item> CADET_HELMET = ITEMS.registerItem("cadet_helmet",
             properties -> new GarArmorItem(ModArmorMaterials.CADET, ArmorItem.Type.HELMET, properties.stacksTo(1), GlobalMorphs.ArmorType.CADET));
 

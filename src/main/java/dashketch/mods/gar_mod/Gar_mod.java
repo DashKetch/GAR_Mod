@@ -25,7 +25,9 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
-import static dashketch.mods.gar_mod.global.ModItems.*;
+import static dashketch.mods.gar_mod.global.items.ModItems.*;
+import static dashketch.mods.gar_mod.global.items.ModArmor.*;
+import static dashketch.mods.gar_mod.global.items.ModBlocks.*;
 
 @Mod(Gar_mod.MODID)
 public class Gar_mod {

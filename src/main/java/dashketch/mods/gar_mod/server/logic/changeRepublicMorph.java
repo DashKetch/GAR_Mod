@@ -1,6 +1,6 @@
 package dashketch.mods.gar_mod.server.logic;
 
-import dashketch.mods.gar_mod.global.ModItems;
+import dashketch.mods.gar_mod.global.items.ModArmor;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.core.Holder;
@@ -22,14 +22,14 @@ public class changeRepublicMorph {
 
     // Map rank ID -> ArmorSet. Uses the numeric rank values from PlayerRankData.
     private static final Map<Integer, ArmorSet> RANK_TO_ARMOR = Map.of(
-            1, new ArmorSet(ModItems.CADET_HELMET, ModItems.CADET_CHESTPLATE, ModItems.CADET_LEGGINGS, ModItems.CADET_BOOTS),
-            2, new ArmorSet(ModItems.TROOPER_HELMET, ModItems.TROOPER_CHESTPLATE, ModItems.TROOPER_LEGGINGS, ModItems.TROOPER_BOOTS),
-            3, new ArmorSet(ModItems.LANCE_HELMET, ModItems.LANCE_CHESTPLATE, ModItems.LANCE_LEGGINGS, ModItems.LANCE_BOOTS),
-            4, new ArmorSet(ModItems.SERGEANT_HELMET, ModItems.SERGEANT_CHESTPLATE, ModItems.SERGEANT_LEGGINGS, ModItems.SERGEANT_BOOTS),
-            5, new ArmorSet(ModItems.WO_HELMET, ModItems.WO_CHESTPLATE, ModItems.WO_LEGGINGS, ModItems.WO_BOOTS),
-            6, new ArmorSet(ModItems.UWO_HELMET, ModItems.UWO_CHESTPLATE, ModItems.UWO_LEGGINGS, ModItems.UWO_BOOTS),
-            7, new ArmorSet(ModItems.CWO_HELMET, ModItems.CWO_CHESTPLATE, ModItems.CWO_LEGGINGS, ModItems.CWO_BOOTS),
-            8, new ArmorSet(ModItems.OFFICER_HELMET, ModItems.OFFICER_CHESTPLATE, ModItems.OFFICER_LEGGINGS, ModItems.OFFICER_BOOTS)
+            1, new ArmorSet(ModArmor.CADET_HELMET, ModArmor.CADET_CHESTPLATE, ModArmor.CADET_LEGGINGS, ModArmor.CADET_BOOTS),
+            2, new ArmorSet(ModArmor.TROOPER_HELMET, ModArmor.TROOPER_CHESTPLATE, ModArmor.TROOPER_LEGGINGS, ModArmor.TROOPER_BOOTS),
+            3, new ArmorSet(ModArmor.LANCE_HELMET, ModArmor.LANCE_CHESTPLATE, ModArmor.LANCE_LEGGINGS, ModArmor.LANCE_BOOTS),
+            4, new ArmorSet(ModArmor.SERGEANT_HELMET, ModArmor.SERGEANT_CHESTPLATE, ModArmor.SERGEANT_LEGGINGS, ModArmor.SERGEANT_BOOTS),
+            5, new ArmorSet(ModArmor.WO_HELMET, ModArmor.WO_CHESTPLATE, ModArmor.WO_LEGGINGS, ModArmor.WO_BOOTS),
+            6, new ArmorSet(ModArmor.UWO_HELMET, ModArmor.UWO_CHESTPLATE, ModArmor.UWO_LEGGINGS, ModArmor.UWO_BOOTS),
+            7, new ArmorSet(ModArmor.CWO_HELMET, ModArmor.CWO_CHESTPLATE, ModArmor.CWO_LEGGINGS, ModArmor.CWO_BOOTS),
+            8, new ArmorSet(ModArmor.OFFICER_HELMET, ModArmor.OFFICER_CHESTPLATE, ModArmor.OFFICER_LEGGINGS, ModArmor.OFFICER_BOOTS)
     );
 
     public static void setMorph(ServerPlayer player) {
