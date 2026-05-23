@@ -37,8 +37,8 @@ public class Gar_mod {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_TAB = CREATIVE_MODE_TABS.register("gar_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.gar_mod"))
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_ARMOR_TAB = CREATIVE_MODE_TABS.register("gar_armor_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.gar_mod_armor"))
             .icon(() -> CADET_CHESTPLATE.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(CADET_HELMET.get());
@@ -73,6 +73,13 @@ public class Gar_mod {
                 output.accept(OFFICER_LEGGINGS.get());
                 output.accept(OFFICER_CHESTPLATE.get());
                 output.accept(OFFICER_HELMET.get());
+            }).build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GAR_ITEM_TAB = CREATIVE_MODE_TABS.register("gar_item_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.gar_mod_items"))
+            .icon(() -> BLASTER_RIFLE.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(BLASTER_RIFLE.get());
             }).build());
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {

@@ -1,9 +1,15 @@
 {
+  "itemGroup.gar_mod_armor": "GAR Mod Armor",
+  "itemGroup.gar_mod_items": "GAR Mod Items",
+
+  "key.categories.gar_mod_utils": "GAR Mod Utils",
+
+  "key.gar_mod.reset": "Reset to choose team",
+
   "item.gar_mod.cadet_helmet": "Cadet Helmet",
   "item.gar_mod.cadet_chestplate": "Cadet Chestplate",
   "item.gar_mod.cadet_leggings": "Cadet Leggings",
   "item.gar_mod.cadet_boots": "Cadet Boots",
-  "itemGroup.gar_mod": "GAR Mod",
   "item.gar_mod.trooper_helmet": "Trooper Helmet",
   "item.gar_mod.trooper_chestplate": "Trooper Chestplate",
   "item.gar_mod.trooper_leggings": "Trooper Leggings",
@@ -12,8 +18,6 @@
   "item.gar_mod.sergeant_chestplate": "Sergeant Chestplate",
   "item.gar_mod.sergeant_leggings": "Sergeant Leggings",
   "item.gar_mod.sergeant_boots": "Sergeant Boots",
-  "key.categories.gar_mod_utils": "GAR Mod Utils",
-  "key.gar_mod.reset": "Reset to choose team",
   "item.gar_mod.officer_helmet": "Officer Helmet",
   "item.gar_mod.officer_chestplate": "Officer Chestplate",
   "item.gar_mod.officer_leggings": "Officer Leggings",
@@ -33,5 +37,7 @@
   "item.gar_mod.cwo_helmet": "Chief Warrant Officer Helmet",
   "item.gar_mod.cwo_chestplate": "Chief Warrant Officer Chestplate",
   "item.gar_mod.cwo_leggings": "Chief Warrant Officer Leggings",
-  "item.gar_mod.cwo_boots": "Chief Warrant Officer Boots"
+  "item.gar_mod.cwo_boots": "Chief Warrant Officer Boots",
+
+  "item.gar_mod.blaster_rifle": "Blaster Rifle"
 }
