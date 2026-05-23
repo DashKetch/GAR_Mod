@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static dashketch.mods.gar_mod.GAR_Mod.LOGGER;
+import static dashketch.mods.gar_mod.Gar_mod.LOGGER;
 
 @Mixin(AbstractClientPlayer.class)
 public class PlayerMixin {
