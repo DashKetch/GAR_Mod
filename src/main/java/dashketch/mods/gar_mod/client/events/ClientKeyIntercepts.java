@@ -1,6 +1,7 @@
 package dashketch.mods.gar_mod.client.events;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import com.mojang.blaze3d.platform.InputConstants.Key;
 import dashketch.mods.gar_mod.utils.item.GarItem;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -22,12 +23,13 @@ public class ClientKeyIntercepts {
         if (mc.player.getMainHandItem().getItem() instanceof GarItem) {
 
             // 2. Check if the pressed key matches the Drop Item keybind
-            int dropKey = mc.options.keyDrop.getKey().getValue();
-            if (event.getKey() == dropKey) {
+            Key dropKey = mc.options.keyDrop.getKey();
+
+            if (event.getKey() == dropKey.getValue()) {
 
                 // 3. consume the input
                 while (mc.options.keyDrop.consumeClick()) {
-                    LOGGER.info("Key event consumed");
+                    LOGGER.info("Key event {} consumed", dropKey.getName());
                 }
 
                 // 4. Force the key state to unpressed just in case they hold it down
