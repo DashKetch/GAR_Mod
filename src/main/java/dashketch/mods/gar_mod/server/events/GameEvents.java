@@ -17,7 +17,7 @@ import java.util.Objects;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
-public class ModEvents {
+public class GameEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {

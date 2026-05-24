@@ -37,4 +37,10 @@ public class ClientModEvents {
             }
         }
     }
+
+    /*
+    @SubscribeEvent
+    public static void lockArmor() {
+    }
+     */
 }
