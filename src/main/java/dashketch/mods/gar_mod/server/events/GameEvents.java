@@ -7,6 +7,7 @@ import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
@@ -14,6 +15,8 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Objects;
 
+import static dashketch.mods.gar_mod.global.items.ModItems.BLASTER_PISTOL;
+import static dashketch.mods.gar_mod.global.items.ModItems.BLASTER_RIFLE;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
@@ -63,6 +66,14 @@ public class GameEvents {
             case 6 -> 210;
             default -> Integer.MAX_VALUE;
         };
+    }
+
+    public static int getRifleModel(Item currentModel) {
+        return currentModel == BLASTER_RIFLE.asItem() ? 0 : 1;
+    }
+
+    public static int getPistolModel(Item currentModel) {
+        return currentModel == BLASTER_PISTOL.asItem() ? 0 : 1;
     }
 
     @SubscribeEvent

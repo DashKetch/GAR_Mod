@@ -1,7 +1,7 @@
 package dashketch.mods.gar_mod.server.events;
 
 import dashketch.mods.gar_mod.Gar_mod;
-import dashketch.mods.gar_mod.network.ResetPayload;
+import dashketch.mods.gar_mod.network.packets.ResetPayload;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.server.level.ServerPlayer;

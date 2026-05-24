@@ -2,7 +2,8 @@ package dashketch.mods.gar_mod;
 
 import com.mojang.logging.LogUtils;
 import dashketch.mods.gar_mod.client.model.armor.*;
-import dashketch.mods.gar_mod.network.ResetPayload;
+import dashketch.mods.gar_mod.network.packets.ResetPayload;
+import dashketch.mods.gar_mod.network.packets.ToggleSafetyPayload;
 import dashketch.mods.gar_mod.server.events.ResetHandler;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
@@ -103,6 +104,12 @@ public class Gar_mod {
                 ResetPayload.TYPE,
                 ResetPayload.STREAM_CODEC,
                 ResetHandler::handle
+        );
+
+        registrar.playToServer(
+                ToggleSafetyPayload.TYPE,
+                ToggleSafetyPayload.CODEC,
+                ToggleSafetyPayload::handleSafetyToggle
         );
     }
 

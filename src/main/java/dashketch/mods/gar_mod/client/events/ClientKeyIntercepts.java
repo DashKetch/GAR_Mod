@@ -15,7 +15,7 @@ import static dashketch.mods.gar_mod.Gar_mod.LOGGER;
 public class ClientKeyIntercepts {
 
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
+    public static void onDropKeyInput(InputEvent.Key event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.options == null) return;
 

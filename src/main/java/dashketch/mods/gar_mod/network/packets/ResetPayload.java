@@ -1,4 +1,4 @@
-package dashketch.mods.gar_mod.network;
+package dashketch.mods.gar_mod.network.packets;
 
 import dashketch.mods.gar_mod.Gar_mod;
 import net.minecraft.network.FriendlyByteBuf;

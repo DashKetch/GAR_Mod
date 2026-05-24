@@ -15,7 +15,7 @@ import static dashketch.mods.gar_mod.Gar_mod.LOGGER;
 public class ClientMouseIntercepts{
 
     @SubscribeEvent
-    public static void onMouseInput(InputEvent.MouseButton.Pre event) {
+    public static void onMouseAttackInput(InputEvent.MouseButton.Pre event) {
         Minecraft mc = Minecraft.getInstance();
 
         // Return Immediately if a gui is open so mouse 1 gui interactions don't get suppressed

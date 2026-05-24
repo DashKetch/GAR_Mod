@@ -3,8 +3,10 @@
   "itemGroup.gar_mod_items": "GAR Mod Items",
 
   "key.categories.gar_mod_utils": "GAR Mod Utils",
+  "key.categories.gar_mod_guns": "Gar Mod Guns",
 
   "key.gar_mod.reset": "Reset to choose team",
+  "key.gar_mod.safety_no_change": "Toggle gun safety (Don't change)",
 
   "item.gar_mod.cadet_helmet": "Cadet Helmet",
   "item.gar_mod.cadet_chestplate": "Cadet Chestplate",
@@ -40,6 +42,10 @@
   "item.gar_mod.cwo_boots": "Chief Warrant Officer Boots",
 
   "item.gar_mod.blaster_rifle": "Blaster Rifle",
+  "item.gar_mod.blaster_pistol": "Blaster Pistol",
+
+  "item.gar_mod.blaster_rifle_safety": "Blaster Rifle",
+  "item.gar_mod.blaster_pistol_safety": "Blaster Pistol",
 
   "entity.gar_mod.blaster_bolt": "Blaster Bolt"
 }
