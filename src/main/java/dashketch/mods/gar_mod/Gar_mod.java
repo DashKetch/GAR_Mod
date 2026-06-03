@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dashketch.mods.gar_mod.client.model.armor.*;
 import dashketch.mods.gar_mod.client.ui.hud.RankHUD;
 import dashketch.mods.gar_mod.network.ModNetworking;
+import dashketch.mods.gar_mod.network.packets.SyncPlayerRankPayload;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import net.minecraft.core.registries.Registries;
@@ -20,6 +21,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
@@ -81,7 +83,6 @@ public class Gar_mod {
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(ModNetworking::register);
 
         NeoForge.EVENT_BUS.register(new RankHUD());
 

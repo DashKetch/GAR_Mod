@@ -55,8 +55,8 @@ public class AddPowerCommand {
 
                                             //Sync the changes to the player and anyone tracking them so HUDs and models refresh instantly
                                             PacketDistributor.sendToPlayersTrackingEntityAndSelf(target, new SyncPlayerRankPayload(
-                                                    calculatedRank,
                                                     newPowerAmount,
+                                                    calculatedRank,
                                                     oldData.tickCounter,
                                                     oldData.team,
                                                     target.getId()

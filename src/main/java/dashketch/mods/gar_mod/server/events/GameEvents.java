@@ -2,6 +2,7 @@ package dashketch.mods.gar_mod.server.events;
 
 import dashketch.mods.gar_mod.Gar_mod;
 import dashketch.mods.gar_mod.client.ui.gui.TeamSelectionScreen;
+import dashketch.mods.gar_mod.network.packets.SyncPlayerRankPayload;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.client.Minecraft;
@@ -11,7 +12,9 @@ import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Objects;
 
@@ -80,5 +83,41 @@ public class GameEvents {
     public static void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
         PlayerRankData data = event.getEntity().getData(ModAttachments.PLAYER_RANK);
         event.getRenderer().getModel().setAllVisible(!data.team.equals("raider"));
+    }
+
+    // Helper method to look up server data and broadcast it to the client
+    private static void syncPlayerData(ServerPlayer player) {
+        PlayerRankData data = player.getData(ModAttachments.PLAYER_RANK);
+        if (data != null) {
+            // Send the full data state specifically to this player and anyone tracking them
+            PacketDistributor.sendToPlayersTrackingEntityAndSelf(player, new SyncPlayerRankPayload(
+                    data.points,
+                    data.rank,
+                    data.tickCounter,
+                    data.team,
+                    player.getId()
+            ));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncPlayerData(serverPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncPlayerData(serverPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncPlayerData(serverPlayer);
+        }
     }
 }
