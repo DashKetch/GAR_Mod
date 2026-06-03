@@ -2,9 +2,8 @@ package dashketch.mods.gar_mod;
 
 import com.mojang.logging.LogUtils;
 import dashketch.mods.gar_mod.client.model.armor.*;
-import dashketch.mods.gar_mod.network.packets.ResetPayload;
-import dashketch.mods.gar_mod.network.packets.ToggleSafetyPayload;
-import dashketch.mods.gar_mod.server.events.ResetHandler;
+import dashketch.mods.gar_mod.client.ui.hud.RankHUD;
+import dashketch.mods.gar_mod.network.ModNetworking;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import net.minecraft.core.registries.Registries;
@@ -21,8 +20,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
@@ -84,7 +81,9 @@ public class Gar_mod {
 
     public Gar_mod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::registerPackets);
+        modEventBus.addListener(ModNetworking::register);
+
+        NeoForge.EVENT_BUS.register(new RankHUD());
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
@@ -96,21 +95,6 @@ public class Gar_mod {
 
         // This registers 'onServerStarting' to the FORGE bus
         NeoForge.EVENT_BUS.register(this);
-    }
-
-    private void registerPackets(final RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar(MODID);
-        registrar.playToServer(
-                ResetPayload.TYPE,
-                ResetPayload.STREAM_CODEC,
-                ResetHandler::handle
-        );
-
-        registrar.playToServer(
-                ToggleSafetyPayload.TYPE,
-                ToggleSafetyPayload.CODEC,
-                ToggleSafetyPayload::handleSafetyToggle
-        );
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

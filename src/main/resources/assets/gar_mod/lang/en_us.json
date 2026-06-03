@@ -4,9 +4,11 @@
 
   "key.categories.gar_mod_utils": "GAR Mod Utils",
   "key.categories.gar_mod_guns": "Gar Mod Guns",
+  "key.categories.gar_mod_menus": "Gar Mod Menus",
 
   "key.gar_mod.reset": "Reset to choose team",
   "key.gar_mod.safety_no_change": "Toggle gun safety (Don't change)",
+  "key.gar_mod.expand": "Expand HUD Icons",
 
   "item.gar_mod.cadet_helmet": "Cadet Helmet",
   "item.gar_mod.cadet_chestplate": "Cadet Chestplate",

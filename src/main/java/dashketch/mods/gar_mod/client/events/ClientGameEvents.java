@@ -2,18 +2,40 @@ package dashketch.mods.gar_mod.client.events;
 
 import dashketch.mods.gar_mod.Gar_mod;
 import dashketch.mods.gar_mod.client.ui.gui.TeamSelectionScreen;
+import dashketch.mods.gar_mod.keybinds.KeyBindings;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientGameEvents {
+
+    private static boolean initialSyncDone = false;
+
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        // Run once on the first tick when the game is ready and mc.options is guaranteed to exist
+        if (!initialSyncDone && KeyBindings.mc.options != null) {
+            KeyBindings.syncSafetyToDropKey();
+            initialSyncDone = true;
+        }
+    }
+
+    @SubscribeEvent
+    public static void onScreenClosing(ScreenEvent.Closing event) {
+        // When the user closes the Options screen, sync the keys in case they changed 'Drop'
+        if (event.getScreen() instanceof OptionsScreen) {
+            KeyBindings.syncSafetyToDropKey();
+        }
+    }
 
     @SubscribeEvent
     public static void onClientTick(PlayerTickEvent.Post event) {

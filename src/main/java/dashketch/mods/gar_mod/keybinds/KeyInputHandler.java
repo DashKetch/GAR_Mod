@@ -1,6 +1,7 @@
 package dashketch.mods.gar_mod.keybinds;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.client.ui.hud.RankHUD;
 import dashketch.mods.gar_mod.network.packets.ResetPayload;
 import dashketch.mods.gar_mod.network.packets.ToggleSafetyPayload;
 import net.minecraft.client.Minecraft;
@@ -33,5 +34,14 @@ public class KeyInputHandler {
         PacketDistributor.sendToServer(new ToggleSafetyPayload());
 
         LOGGER.info("Safety packet sent to server!");
+    }
+
+    @SubscribeEvent
+    public static void onExpandKeyInput(InputEvent.Key event) {
+        if (!KeyBindings.EXPAND.consumeClick()) return;
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+
+        RankHUD.menuHudExpanded = !RankHUD.menuHudExpanded;
     }
 }

@@ -2,6 +2,7 @@ package dashketch.mods.gar_mod.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.network.packets.SyncPlayerRankPayload;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.commands.Commands;
@@ -11,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
@@ -39,7 +41,7 @@ public class AddPowerCommand {
                                             boolean rankChange = (calculatedRank != 7 && newPowerAmount < 320) || oldData.rank != calculatedRank;
 
 
-                                            // 4. Update only the points (preserving rank and ticks)
+                                            // 4. Update only the points (preserving rank and ticks) on server side attachment
                                             target.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
                                                     calculatedRank,
                                                     newPowerAmount,
@@ -51,8 +53,17 @@ public class AddPowerCommand {
                                             context.getSource().sendSuccess(() ->
                                                     Component.literal("Added " + powerAmount + " power to " + target.getScoreboardName() + "'s power."), true);
 
+                                            //Sync the changes to the player and anyone tracking them so HUDs and models refresh instantly
+                                            PacketDistributor.sendToPlayersTrackingEntityAndSelf(target, new SyncPlayerRankPayload(
+                                                    calculatedRank,
+                                                    newPowerAmount,
+                                                    oldData.tickCounter,
+                                                    oldData.team,
+                                                    target.getId()
+                                            ));
+
                                             // 6. Set new morph
-                                            if (rankChange) {setMorph(target);}
+                                            if (rankChange) { setMorph(target); }
                                             return 1;
                                         })
                                 )

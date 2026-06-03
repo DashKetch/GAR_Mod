@@ -1,6 +1,9 @@
 package dashketch.mods.gar_mod.network;
 
 import dashketch.mods.gar_mod.Gar_mod;
+import dashketch.mods.gar_mod.network.packets.ResetPayload;
+import dashketch.mods.gar_mod.network.packets.SyncPlayerRankPayload;
+import dashketch.mods.gar_mod.network.packets.ToggleSafetyPayload;
 import dashketch.mods.gar_mod.server.events.ResetHandler;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
@@ -20,6 +23,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.jetbrains.annotations.NotNull;
 
+import static dashketch.mods.gar_mod.Gar_mod.LOGGER;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -56,6 +60,9 @@ public class ModNetworking {
 
         registrar.playToServer(SelectTeamPayload.TYPE, SelectTeamPayload.STREAM_CODEC, ModNetworking::handleSelectTeam);
         registrar.playToClient(SyncTeamPayload.TYPE, SyncTeamPayload.STREAM_CODEC, ModNetworking::handleSyncTeam);
+        registrar.playToClient(SyncPlayerRankPayload.TYPE, SyncPlayerRankPayload.STREAM_CODEC, ModNetworking::handleSyncPlayerRankData);
+        registrar.playToServer(ResetPayload.TYPE, ResetPayload.STREAM_CODEC, ResetHandler::handle);
+        registrar.playToServer(ToggleSafetyPayload.TYPE, ToggleSafetyPayload.CODEC, ToggleSafetyPayload::handleSafetyToggle);
     }
 
 
@@ -69,7 +76,7 @@ public class ModNetworking {
                 // 1. Get the NEW team from the packet
                 String newTeam = payload.team();
 
-                System.out.println("Switching " + serverPlayer.getName().getString() + " to team: " + newTeam);
+                LOGGER.info("Switching {} to team: {}", serverPlayer.getName().getString(), newTeam);
 
                 // 2. Update the data attachment FIRST
                 PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
@@ -100,6 +107,24 @@ public class ModNetworking {
                     PlayerRankData oldData = targetPlayer.getData(ModAttachments.PLAYER_RANK);
                     // Update their data locally so the Mixins and Models can see it
                     targetPlayer.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(oldData.rank, oldData.points, oldData.tickCounter, payload.team()));
+                }
+            }
+        });
+    }
+
+    public static void handleSyncPlayerRankData(SyncPlayerRankPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player clientPlayer = context.player();
+            if (clientPlayer != null && clientPlayer.level() != null) {
+                Entity entity = clientPlayer.level().getEntity(payload.entityId());
+                if (entity instanceof Player targetPlayer) {
+                    // Overwrite the entire attachment safely with server metrics
+                    targetPlayer.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
+                            payload.rank(),
+                            payload.points(),
+                            payload.tickCounter(),
+                            payload.team()
+                    ));
                 }
             }
         });
