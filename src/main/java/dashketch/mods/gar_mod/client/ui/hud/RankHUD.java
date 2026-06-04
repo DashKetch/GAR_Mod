@@ -23,6 +23,7 @@ public class RankHUD {
         return menuHudExpanded ? mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points)) + mc.font.width(RANK_TEXT) + mc.font.width(Integer.toString(rank)) : mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points));
     }
 
+    @SuppressWarnings("DuplicateCondition")
     @SubscribeEvent
     public void onRenderGui(RenderGuiEvent.Post event) {
         // 1. Exit early if the player isn't loaded in a world yet
@@ -39,6 +40,7 @@ public class RankHUD {
 
         // 3. Render using the live variables
         graphics.fill(x - 4, y - 4, x + getWidth(playerPoints, playerRank) + 14, y + 6, 0x99000000);
-        graphics.drawString(mc.font, POWER_TEXT + playerPoints, ((float) x), y - 3.25f, 0xFFFFFF, true);
+
+        if (!menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints, ((float) x), y - 3.25f, 0xFFFFFF, true);} else if (menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints + RANK_TEXT + playerRank, ((float) x), y - 3.25f, 0xFFFFFF, true);} else {graphics.drawString(mc.font, "INTERNAL ERROR", ((float) x), y - 3.25f, 0xFFFFFF, true);}
     }
 }
