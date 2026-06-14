@@ -1,0 +1,16 @@
+{
+  "blaster_rifle_fire": {
+    "category": "master",
+    "subtitle": "subtitles.gar_mod.blaster_rifle_fire",
+    "sounds": [
+      "gar_mod:item/blaster_rifle/blaster_rifle_fire"
+    ]
+  },
+  "blaster_pistol_fire": {
+    "category": "master",
+    "subtitle": "subtitles.gar_mod.blaster_pistol_fire",
+    "sounds": [
+      "gar_mod:item/blaster_pistol/blaster_pistol_fire"
+    ]
+  }
+}

@@ -10,6 +10,9 @@
   "key.gar_mod.safety_no_change": "Toggle gun safety (Don't change)",
   "key.gar_mod.expand": "Expand HUD Icons",
 
+  "subtitles.gar_mod.blaster_rifle_fire": "Blaster Rifle Fire",
+  "subtitles.gar_mod.blaster_pistol_fire": "Blaster Pistol Fire",
+
   "item.gar_mod.cadet_helmet": "Cadet Helmet",
   "item.gar_mod.cadet_chestplate": "Cadet Chestplate",
   "item.gar_mod.cadet_leggings": "Cadet Leggings",
