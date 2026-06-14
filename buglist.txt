@@ -1,0 +1,14 @@
+-------------------------------------------------
+
+Current Bug List
+
+Key:
+✅ - Completed
+❎ - Uncompletable/Not planning to address
+🔁 - In progress
+
+-------------------------------------------------
+
+Player morph doesn't update for other players on team change command
+Op morph is cwo, not officer ✅
+team menu doesn't show on reset 🔁

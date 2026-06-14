@@ -20,7 +20,7 @@ public class SetPowerCommand {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
-                Commands.literal("SetPlayerPower")
+                Commands.literal("setplayerpower")
                         .requires(source -> source.hasPermission(2)) // Level 2 = OP/Admin
                         .then(Commands.argument("target", EntityArgument.player())
                                 .then(Commands.argument("amount", IntegerArgumentType.integer(0)) // Min value 0

@@ -22,7 +22,7 @@ public class AddPowerCommand {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
-                Commands.literal("AddPlayerPower")
+                Commands.literal("addplayerpower")
                         .requires(source -> source.hasPermission(2)) // Level 2 = OP/Admin
                         .then(Commands.argument("target", EntityArgument.player())
                                 .then(Commands.argument("amount", IntegerArgumentType.integer(0)) // Min value 0

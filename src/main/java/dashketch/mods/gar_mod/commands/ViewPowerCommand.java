@@ -17,7 +17,7 @@ public class ViewPowerCommand {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
-                Commands.literal("ViewPlayerPower")
+                Commands.literal("viewplayerpower")
                         .requires(source -> source.hasPermission(1)) // Level 1 = Regular Player
                         .then(Commands.argument("target", EntityArgument.player())
                                         .executes(context -> {

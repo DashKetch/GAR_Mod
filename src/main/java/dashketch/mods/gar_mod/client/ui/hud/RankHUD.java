@@ -18,9 +18,23 @@ public class RankHUD {
     private static final String POWER_TEXT = "Power: ";
     private static final String RANK_TEXT = " Rank: ";
 
+    // Helper method to convert rank into a word
+    private String rankName(int rank) {
+        return switch (rank) {
+            case 2 -> "Trooper";
+            case 3 -> "Lance Corporal";
+            case 4 -> "Sergeant";
+            case 5 -> "Warrant Officer";
+            case 6 -> "Upper Warrant Officer";
+            case 7 -> "Chief Warrant Officer";
+            case 8 -> "Officer";
+            default -> "Cadet";
+        };
+    }
+
     // Helper method to dynamically calculate text width based on current points
     private int getWidth(int points, int rank) {
-        return menuHudExpanded ? mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points)) + mc.font.width(RANK_TEXT) + mc.font.width(Integer.toString(rank)) : mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points));
+        return menuHudExpanded ? mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points)) + mc.font.width(RANK_TEXT) + mc.font.width(rankName(rank)) : mc.font.width(POWER_TEXT) + mc.font.width(Integer.toString(points));
     }
 
     @SuppressWarnings("DuplicateCondition")
@@ -39,8 +53,8 @@ public class RankHUD {
         GuiGraphics graphics = event.getGuiGraphics();
 
         // 3. Render using the live variables
-        graphics.fill(x - 4, y - 4, x + getWidth(playerPoints, playerRank) + 14, y + 6, 0x99000000);
+        graphics.fill(x - 4, y - 4, x + getWidth(playerPoints, playerRank) + 4, y + 6, 0x99000000);
 
-        if (!menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints, ((float) x), y - 3.25f, 0xFFFFFF, true);} else if (menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints + RANK_TEXT + playerRank, ((float) x), y - 3.25f, 0xFFFFFF, true);} else {graphics.drawString(mc.font, "INTERNAL ERROR", ((float) x), y - 3.25f, 0xFFFFFF, true);}
+        if (!menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints, ((float) x), y - 3.25f, 0xFFFFFF, true);} else if (menuHudExpanded) {graphics.drawString(mc.font, POWER_TEXT + playerPoints + RANK_TEXT + rankName(playerRank), ((float) x), y - 3.25f, 0xFFFFFF, true);} else {graphics.drawString(mc.font, "INTERNAL ERROR", ((float) x), y - 3.25f, 0xFFFFFF, true);}
     }
 }

@@ -26,7 +26,7 @@ public class ChangeTeamCommand {
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
-                Commands.literal("ChangePlayerTeam")
+                Commands.literal("changeplayerteam")
                         .requires(source -> source.hasPermission(2))
                         .then(Commands.argument("target", EntityArgument.player())
                                 .then(Commands.argument("team", StringArgumentType.word())

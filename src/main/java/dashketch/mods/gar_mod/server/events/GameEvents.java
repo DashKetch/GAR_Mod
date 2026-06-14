@@ -1,25 +1,27 @@
 package dashketch.mods.gar_mod.server.events;
 
 import dashketch.mods.gar_mod.Gar_mod;
-import dashketch.mods.gar_mod.client.ui.gui.TeamSelectionScreen;
 import dashketch.mods.gar_mod.network.packets.SyncPlayerRankPayload;
 import dashketch.mods.gar_mod.utils.data.ModAttachments;
 import dashketch.mods.gar_mod.utils.data.PlayerRankData;
-import net.minecraft.client.Minecraft;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderPlayerEvent;
+import net.neoforged.neoforge.event.CommandEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Objects;
 
-import static dashketch.mods.gar_mod.global.items.ModItems.BLASTER_PISTOL;
-import static dashketch.mods.gar_mod.global.items.ModItems.BLASTER_RIFLE;
+import static dashketch.mods.gar_mod.global.items.ModArmor.*;
+import static dashketch.mods.gar_mod.global.items.ModItems.*;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
@@ -52,16 +54,6 @@ public class GameEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onClientTick(PlayerTickEvent.Post event) {
-        if (event.getEntity().level().isClientSide() && event.getEntity() == Minecraft.getInstance().player) {
-            PlayerRankData data = event.getEntity().getData(ModAttachments.PLAYER_RANK);
-            if (data.team.equals("none") && Minecraft.getInstance().screen == null) {
-                Minecraft.getInstance().setScreen(new TeamSelectionScreen());
-            }
-        }
-    }
-
     public static int getPointsNeededForNextRank(int currentRank) {
         return switch (currentRank) {
             case 0 -> 0; case 1 -> 2; case 2 -> 15;
@@ -77,12 +69,6 @@ public class GameEvents {
 
     public static int getPistolModel(Item currentModel) {
         return currentModel == BLASTER_PISTOL.asItem() ? 0 : 1;
-    }
-
-    @SubscribeEvent
-    public static void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
-        PlayerRankData data = event.getEntity().getData(ModAttachments.PLAYER_RANK);
-        event.getRenderer().getModel().setAllVisible(!data.team.equals("raider"));
     }
 
     // Helper method to look up server data and broadcast it to the client
@@ -118,6 +104,38 @@ public class GameEvents {
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             syncPlayerData(serverPlayer);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onCommandEvent(CommandEvent event) {
+        // Get the raw command string typed by the user (e.g., "op playername")
+        String command = event.getParseResults().getReader().getString();
+
+        if (command.startsWith("op ")) {
+            // Extract the target player name following "op "
+            String targetPlayerName = command.substring(3).trim();
+
+            // Get the source stack executing the command to access the server instance
+            CommandSourceStack source = event.getParseResults().getContext().getSource();
+
+            if (source.getServer() != null) {
+                // Look up the target player by name on the server
+                ServerPlayer targetPlayer = source.getServer().getPlayerList().getPlayerByName(targetPlayerName);
+
+                if (targetPlayer != null) {
+                    PlayerRankData data = targetPlayer.getData(ModAttachments.PLAYER_RANK);
+
+                    if (data != null) {
+                        targetPlayer.setItemSlot(EquipmentSlot.HEAD, new ItemStack((ItemLike) OFFICER_HELMET));
+                        targetPlayer.setItemSlot(EquipmentSlot.CHEST, new ItemStack((ItemLike) OFFICER_CHESTPLATE));
+                        targetPlayer.setItemSlot(EquipmentSlot.LEGS, new ItemStack((ItemLike) OFFICER_LEGGINGS));
+                        targetPlayer.setItemSlot(EquipmentSlot.FEET, new ItemStack((ItemLike) OFFICER_BOOTS));
+
+                        Gar_mod.LOGGER.info("Automatically updated {}'s morph to Officer via /op intercept.", targetPlayerName);
+                    }
+                }
+            }
         }
     }
 }
