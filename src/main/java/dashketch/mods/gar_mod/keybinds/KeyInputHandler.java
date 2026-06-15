@@ -23,6 +23,7 @@ public class KeyInputHandler {
         if (mc.player == null) return;
 
         PacketDistributor.sendToServer(new ResetPayload());
+
     }
 
     @SubscribeEvent

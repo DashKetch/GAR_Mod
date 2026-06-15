@@ -12,6 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
+import static dashketch.mods.gar_mod.server.events.GameEvents.syncPlayerData;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
@@ -49,6 +50,8 @@ public class SetPowerCommand {
 
                                             // 5. Set new morph
                                             if (rankChange) {setMorph(target);}
+
+                                            syncPlayerData(target);
 
                                             return 1;
                                         })

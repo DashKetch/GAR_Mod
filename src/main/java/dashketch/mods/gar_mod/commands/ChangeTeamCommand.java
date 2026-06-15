@@ -18,6 +18,8 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.Arrays;
 import java.util.List;
 
+import static dashketch.mods.gar_mod.server.events.GameEvents.syncPlayerData;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ChangeTeamCommand {
 
@@ -56,6 +58,8 @@ public class ChangeTeamCommand {
 
                                             context.getSource().sendSuccess(() ->
                                                     Component.literal("Set " + target.getScoreboardName() + "'s team to " + teamInput), true);
+
+                                            syncPlayerData(target);
 
                                             return 1;
                                         })

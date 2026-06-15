@@ -41,20 +41,44 @@ public class ResetHandler {
 
             // 1. Save the inventory ONLY if they are on a valid team (not "none")
             if (currentTeam != null && !currentTeam.equals("none")) {
-                Inventory inv = player.getInventory();
-                SavedInventory saved = new SavedInventory(
-                        copyList(inv.items),
-                        copyList(inv.armor),
-                        copyList(inv.offhand)
-                );
+                if (!currentTeam.equals("republic")) {
+                    Inventory inv = player.getInventory();
+                    SavedInventory saved = new SavedInventory(
+                            copyList(inv.items),
+                            copyList(inv.armor),
+                            copyList(inv.offhand)
+                    );
 
-                // 2. Store it under their specific team name
-                TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
-                        .put(currentTeam, saved);
+                    // 2. Store it under their specific team name
+                    TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
+                            .put(currentTeam, saved);
+                } else {
+                    Inventory inv = player.getInventory();
+                    SavedInventory saved = new SavedInventory(
+                            copyList(inv.items),
+                            null,
+                            copyList(inv.offhand)
+                    );
+
+                    // 2. Store it under their specific team name
+                    TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
+                            .put(currentTeam, saved);
+                }
             }
 
             // 3. Clear inventory and kill
             player.getInventory().clearContent();
+
+            PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
+
+            // Update the data with the new teamInput
+            player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(
+                    oldData.rank,
+                    oldData.points,
+                    oldData.tickCounter,
+                    "none"
+            ));
+
             player.kill();
         });
     }

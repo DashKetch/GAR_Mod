@@ -72,7 +72,7 @@ public class GameEvents {
     }
 
     // Helper method to look up server data and broadcast it to the client
-    private static void syncPlayerData(ServerPlayer player) {
+    public static void syncPlayerData(ServerPlayer player) {
         PlayerRankData data = player.getData(ModAttachments.PLAYER_RANK);
         if (data != null) {
             // Send the full data state specifically to this player and anyone tracking them
@@ -90,6 +90,7 @@ public class GameEvents {
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             syncPlayerData(serverPlayer);
+            setMorph(serverPlayer);
         }
     }
 
@@ -97,6 +98,7 @@ public class GameEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             syncPlayerData(serverPlayer);
+            setMorph(serverPlayer);
         }
     }
 
@@ -131,6 +133,8 @@ public class GameEvents {
                         targetPlayer.setItemSlot(EquipmentSlot.CHEST, new ItemStack((ItemLike) OFFICER_CHESTPLATE));
                         targetPlayer.setItemSlot(EquipmentSlot.LEGS, new ItemStack((ItemLike) OFFICER_LEGGINGS));
                         targetPlayer.setItemSlot(EquipmentSlot.FEET, new ItemStack((ItemLike) OFFICER_BOOTS));
+
+                        syncPlayerData(targetPlayer);
 
                         Gar_mod.LOGGER.info("Automatically updated {}'s morph to Officer via /op intercept.", targetPlayerName);
                     }

@@ -6,9 +6,15 @@ Key:
 ✅ - Completed
 ❎ - Uncompletable/Not planning to address
 🔁 - In progress
+⚠️ - Important
 
 -------------------------------------------------
 
 Player morph doesn't update for other players on team change command
 Op morph is cwo, not officer ✅
-team menu doesn't show on reset 🔁
+team menu doesn't show on reset ✅
+⚠️ Players can't connect ✅
+Player doesn't receive morph on join
+Armor pieces that are a part of the morph drop upon death
+
+-------------------------------------------------

@@ -3,14 +3,19 @@ package dashketch.mods.gar_mod.client.ui.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dashketch.mods.gar_mod.client.ui.gui.widget.TeamButton;
 import dashketch.mods.gar_mod.network.ModNetworking;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.NotNull;
 
 import static dashketch.mods.gar_mod.Gar_mod.MODID;
+import static dashketch.mods.gar_mod.server.events.GameEvents.syncPlayerData;
+import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
 public class TeamSelectionScreen extends Screen {
     private static final ResourceLocation BG_TEXTURE = ResourceLocation.fromNamespaceAndPath(MODID, "textures/gui/team_background.png");
@@ -20,6 +25,10 @@ public class TeamSelectionScreen extends Screen {
 
     public TeamSelectionScreen() {
         super(Component.literal("Select Your Team"));
+    }
+
+    public static void open() {
+        Minecraft.getInstance().setScreen(new TeamSelectionScreen());
     }
 
     @Override
@@ -39,7 +48,7 @@ public class TeamSelectionScreen extends Screen {
         this.addRenderableWidget(new TeamButton(startX + cardWidth + spacing, startY, cardWidth, cardHeight, "Raider", 0xFFFF5555, (b) -> select("raider"), null, RDR_TEXTURE));
 
         // Republic - Blue Placeholder
-        this.addRenderableWidget(new TeamButton(startX + (cardWidth + spacing) * 2, startY, cardWidth, cardHeight, "Republic", 0xFF5555FF, (b) -> select("republic"), null /* Will be for rank checking & armor assigning logic*/, REP_TEXTURE));
+        this.addRenderableWidget(new TeamButton(startX + (cardWidth + spacing) * 2, startY, cardWidth, cardHeight, "Republic", 0xFF5555FF, (b) -> select("republic"), null, REP_TEXTURE));
     }
 
     private void select(String team) {
