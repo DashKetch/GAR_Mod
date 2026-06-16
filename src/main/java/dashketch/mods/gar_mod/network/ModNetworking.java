@@ -73,25 +73,24 @@ public class ModNetworking {
         context.enqueueWork(() -> {
             Player player = context.player();
             if (player instanceof ServerPlayer serverPlayer) {
-                // 1. Get the NEW team from the packet
                 String newTeam = payload.team();
 
                 LOGGER.info("Switching {} to team: {}", serverPlayer.getName().getString(), newTeam);
 
-                // 2. Update the data attachment FIRST
+                // Update the data attachment
                 PlayerRankData oldData = player.getData(ModAttachments.PLAYER_RANK);
                 player.setData(ModAttachments.PLAYER_RANK, new PlayerRankData(oldData.rank, oldData.points, oldData.tickCounter, newTeam));
 
-                // 3. Force the inventory clear/restore based on the NEW team name explicitly
+                // Force the inventory clear/restore based on the NEW team name explicitly
                 ResetHandler.restoreTeamInventory(serverPlayer, newTeam);
 
-                // 4. Update player morph
+                // Update player morph
                 if (newTeam.equalsIgnoreCase("republic")) {
                     setMorph(serverPlayer);
                 }
 
-                // 5. Sync to everyone else
-                PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new SyncTeamPayload(serverPlayer.getId(), newTeam));
+                // Sync the fully updated data to everyone instantly (Replaces SyncTeamPayload!)
+                dashketch.mods.gar_mod.server.events.GameEvents.syncPlayerData(serverPlayer);
             }
         });
     }

@@ -41,29 +41,16 @@ public class ResetHandler {
 
             // 1. Save the inventory ONLY if they are on a valid team (not "none")
             if (currentTeam != null && !currentTeam.equals("none")) {
-                if (!currentTeam.equals("republic")) {
-                    Inventory inv = player.getInventory();
-                    SavedInventory saved = new SavedInventory(
-                            copyList(inv.items),
-                            copyList(inv.armor),
-                            copyList(inv.offhand)
-                    );
+                Inventory inv = player.getInventory();
+                SavedInventory saved = new SavedInventory(
+                        copyList(inv.items),
+                        copyList(inv.armor),
+                        copyList(inv.offhand)
+                );
 
-                    // 2. Store it under their specific team name
-                    TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
-                            .put(currentTeam, saved);
-                } else {
-                    Inventory inv = player.getInventory();
-                    SavedInventory saved = new SavedInventory(
-                            copyList(inv.items),
-                            null,
-                            copyList(inv.offhand)
-                    );
-
-                    // 2. Store it under their specific team name
-                    TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
-                            .put(currentTeam, saved);
-                }
+                // 2. Store it under their specific team name
+                TEAM_INVENTORIES.computeIfAbsent(player.getUUID(), k -> new ConcurrentHashMap<>())
+                        .put(currentTeam, saved);
             }
 
             // 3. Clear inventory and kill

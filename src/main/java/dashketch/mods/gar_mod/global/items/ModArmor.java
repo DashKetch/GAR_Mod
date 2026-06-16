@@ -5,12 +5,16 @@ import dashketch.mods.gar_mod.global.GlobalMorphs;
 import dashketch.mods.gar_mod.utils.armor.GarArmorItem;
 import dashketch.mods.gar_mod.utils.armor.ModArmorMaterials;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static dashketch.mods.gar_mod.Gar_mod.MODID;
 import static dashketch.mods.gar_mod.global.items.ModItems.ITEMS;
@@ -118,4 +122,19 @@ public class ModArmor {
     public static final DeferredItem<GarArmorItem> CWO_BOOTS = ITEMS.registerItem("cwo_boots",
             properties -> new GarArmorItem(ModArmorMaterials.CWO, ArmorItem.Type.BOOTS, properties.stacksTo(1), GlobalMorphs.ArmorType.WARRANT3));
 
+
+    public static Set<Item> getAllRegisteredArmorItems() {
+        return Stream.of(
+                        CADET_HELMET, CADET_CHESTPLATE, CADET_LEGGINGS, CADET_BOOTS,
+                        TROOPER_HELMET, TROOPER_CHESTPLATE, TROOPER_LEGGINGS, TROOPER_BOOTS,
+                        SERGEANT_HELMET, SERGEANT_CHESTPLATE, SERGEANT_LEGGINGS, SERGEANT_BOOTS,
+                        OFFICER_HELMET, OFFICER_CHESTPLATE, OFFICER_LEGGINGS, OFFICER_BOOTS,
+                        LANCE_HELMET, LANCE_CHESTPLATE, LANCE_LEGGINGS, LANCE_BOOTS,
+                        WO_HELMET, WO_CHESTPLATE, WO_LEGGINGS, WO_BOOTS,
+                        UWO_HELMET, UWO_CHESTPLATE, UWO_LEGGINGS, UWO_BOOTS,
+                        CWO_HELMET, CWO_CHESTPLATE, CWO_LEGGINGS, CWO_BOOTS
+                )
+                .map(DeferredItem::get)
+                .collect(Collectors.toUnmodifiableSet());
+    }
 }
