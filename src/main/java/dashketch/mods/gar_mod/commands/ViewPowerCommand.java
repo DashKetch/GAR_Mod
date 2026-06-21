@@ -11,6 +11,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
+import static dashketch.mods.gar_mod.client.ui.hud.RankHUD.rankName;
+
 @EventBusSubscriber(modid = Gar_mod.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ViewPowerCommand {
 
@@ -29,7 +31,7 @@ public class ViewPowerCommand {
 
                                             // 5. Feedback
                                             context.getSource().sendSuccess(() ->
-                                                    Component.literal(target.getScoreboardName() + " is Rank " + playerRankData.rank +
+                                                    Component.literal(target.getScoreboardName() + " is Rank " + rankName(playerRankData.rank) +
                                                             " with " + playerRankData.points + " Power."), true);
 
                                             return 1;

@@ -19,7 +19,7 @@ public class RankHUD {
     private static final String RANK_TEXT = " Rank: ";
 
     // Helper method to convert rank into a word
-    private String rankName(int rank) {
+    public static String rankName(int rank) {
         return switch (rank) {
             case 2 -> "Trooper";
             case 3 -> "Lance Corporal";

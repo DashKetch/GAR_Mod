@@ -8,10 +8,7 @@ import dashketch.mods.gar_mod.utils.data.PlayerRankData;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.CommandEvent;
@@ -24,7 +21,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static dashketch.mods.gar_mod.global.items.ModArmor.*;
 import static dashketch.mods.gar_mod.global.items.ModItems.*;
 import static dashketch.mods.gar_mod.server.logic.ChangeRepublicMorph.setMorph;
 
@@ -76,13 +72,6 @@ public class GameEvents {
         return currentModel == BLASTER_PISTOL.asItem() ? 0 : 1;
     }
 
-    public static void setOPMorph(ServerPlayer targetPlayer) {
-        targetPlayer.setItemSlot(EquipmentSlot.HEAD, new ItemStack((ItemLike) OFFICER_HELMET));
-        targetPlayer.setItemSlot(EquipmentSlot.CHEST, new ItemStack((ItemLike) OFFICER_CHESTPLATE));
-        targetPlayer.setItemSlot(EquipmentSlot.LEGS, new ItemStack((ItemLike) OFFICER_LEGGINGS));
-        targetPlayer.setItemSlot(EquipmentSlot.FEET, new ItemStack((ItemLike) OFFICER_BOOTS));
-    }
-
     public static void syncPlayerData(ServerPlayer player) {
         PlayerRankData data = player.getData(ModAttachments.PLAYER_RANK);
         if (data != null) {
@@ -104,10 +93,8 @@ public class GameEvents {
 
             // 2. Only give them the morph if they are actually a registered Republic member
             PlayerRankData data = serverPlayer.getData(ModAttachments.PLAYER_RANK);
-            if (data != null && "republic".equals(data.team) && serverPlayer.hasPermissions(1)) {
+            if (data != null && "republic".equals(data.team)) {
                 setMorph(serverPlayer);
-            } else {
-                setOPMorph(serverPlayer);
             }
         }
     }
@@ -120,10 +107,8 @@ public class GameEvents {
 
             // 2. Only restore morph if they are on the Republic team
             PlayerRankData data = serverPlayer.getData(ModAttachments.PLAYER_RANK);
-            if (data != null && "republic".equals(data.team) && serverPlayer.hasPermissions(1)) {
+            if (data != null && "republic".equals(data.team)) {
                 setMorph(serverPlayer);
-            } else {
-                setOPMorph(serverPlayer);
             }
         }
     }
@@ -157,7 +142,7 @@ public class GameEvents {
                                 data.team
                         ));
 
-                        setOPMorph(targetPlayer);
+                        setMorph(targetPlayer);
 
                         syncPlayerData(targetPlayer);
                         Gar_mod.LOGGER.info("Automatically updated {}'s morph to Officer via /op intercept.", targetPlayerName);
